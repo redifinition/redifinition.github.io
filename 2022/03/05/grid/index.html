@@ -1,0 +1,286 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>html/css/js三件套复习--grid布局 | Joe's five-dimensional space</title><meta name="keywords" content="前端"><meta name="author" content="Joe"><meta name="copyright" content="Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CSS Grid 网格布局教程 还有一个月就开始蓝桥杯了。为了血洗”如何看待蓝桥杯只拿三等奖“之耻，是时候复习下三件套啦！  教程来源：CSS grid网格布局教程 --阮一峰的博客  1 Grid 与 Flex 的区别 Flex 布局是轴线布局，只能指定&quot;项目&quot;针对轴线的位置，可以看作是一维布局。Grid 布局则是将容器划分成&quot;行&quot;和&quot;列&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html&#x2F;css&#x2F;js三件套复习--grid布局">
+<meta property="og:url" content="https://redifinition.github.io/2022/03/05/grid/index.html">
+<meta property="og:site_name" content="Joe&#39;s five-dimensional space">
+<meta property="og:description" content="CSS Grid 网格布局教程 还有一个月就开始蓝桥杯了。为了血洗”如何看待蓝桥杯只拿三等奖“之耻，是时候复习下三件套啦！  教程来源：CSS grid网格布局教程 --阮一峰的博客  1 Grid 与 Flex 的区别 Flex 布局是轴线布局，只能指定&quot;项目&quot;针对轴线的位置，可以看作是一维布局。Grid 布局则是将容器划分成&quot;行&quot;和&quot;列&amp;quo">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-j3qeyq_3840x2880.png">
+<meta property="article:published_time" content="2022-03-04T16:30:14.000Z">
+<meta property="article:modified_time" content="2022-03-04T16:35:03.593Z">
+<meta property="article:author" content="Joe">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-j3qeyq_3840x2880.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://redifinition.github.io/2022/03/05/grid/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'html/css/js三件套复习--grid布局',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-05 00:35:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-e7p2pk_3840x1600.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Joe's five-dimensional space</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">html/css/js三件套复习--grid布局</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-04T16:30:14.000Z" title="发表于 2022-03-05 00:30:14">2022-03-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-04T16:35:03.593Z" title="更新于 2022-03-05 00:35:03">2022-03-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">792</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="html/css/js三件套复习--grid布局"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>CSS Grid 网格布局教程</h1>
+<p>还有一个月就开始蓝桥杯了。为了血洗”如何看待蓝桥杯只拿三等奖“之耻，是时候复习下三件套啦！</p>
+<blockquote>
+<p>教程来源：CSS grid网格布局教程 --阮一峰的博客</p>
+</blockquote>
+<h2 id="1-Grid-与-Flex-的区别">1 Grid 与 Flex 的区别</h2>
+<p>Flex 布局是轴线布局，只能指定&quot;项目&quot;针对轴线的位置，可以看作是<strong>一维布局</strong>。Grid 布局则是将容器划分成&quot;行&quot;和&quot;列&quot;，产生单元格，然后指定&quot;项目所在&quot;的单元格，可以看作是<strong>二维布局</strong>。Grid 布局远比 Flex 布局强大。</p>
+<h2 id="2-基本概念">2 基本概念</h2>
+<h3 id="2-1-容器和项目">2.1 容器和项目</h3>
+<p>采用网格布局的区域，称为&quot;容器&quot;（container）。容器内部采用网格定位的子元素，称为&quot;项目&quot;（item）</p>
+<p>项目只能是容器的顶层子元素，不包含项目的子元素，Grid 布局只对项目生效。</p>
+<h3 id="2-2-行和列">2.2 行和列</h3>
+<p><img src="https://www.wangbase.com/blogimg/asset/201903/1_bg2019032502.png" alt="img"></p>
+<p>容器里面的水平区域称为&quot;行&quot;（row），垂直区域称为&quot;列&quot;（column）。</p>
+<h3 id="2-3-单元格和网格线">2.3 单元格和网格线</h3>
+<p>行和列的交叉区域，称为&quot;<strong>单元格</strong>&quot;（cell）。划分网格的线，称为&quot;<strong>网格线</strong>&quot;（grid line）。水平网格线划分出行，垂直网格线划分出列。</p>
+<h2 id="3-容器属性">3 容器属性</h2>
+<h3 id="3-1-display属性">3.1 display属性</h3>
+<p><code>display: grid</code>指定一个容器采用网格布局。</p>
+<p>默认情况下，容器元素都是块级元素，但也可以设成行内元素。</p>
+<ul>
+<li>
+<p>容器是块级元素</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201903/bg2019032504.png" alt="img"></p>
+</li>
+<li>
+<p>容器是行内元素</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201903/bg2019032505.png" alt="img"></p>
+</li>
+</ul>
+<p>​</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-grid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，设为网格布局以后，容器子元素（项目）的<code>float</code>、<code>display: inline-block</code>、<code>display: table-cell</code>、<code>vertical-align</code>和<code>column-*</code>等设置都将失效。</p>
+<h3 id="3-2-grid-template-columns-属性，-grid-template-rows-属性">3.2 grid-template-columns 属性， grid-template-rows 属性</h3>
+<p>容器指定了网格布局以后，接着就要划分行和列。<code>grid-template-columns</code>属性定义每一列的列宽，<code>grid-template-rows</code>属性定义每一行的行高。</p>
+<blockquote>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  grid-template-<span class="attribute">columns</span>: <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span>;</span><br><span class="line">  grid-template-rows: <span class="number">100px</span> <span class="number">100px</span> <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>除了使用绝对单位，也可以使用百分比。</p>
+<blockquote>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  grid-template-<span class="attribute">columns</span>: <span class="number">33.33%</span> <span class="number">33.33%</span> <span class="number">33.33%</span>;</span><br><span class="line">  grid-template-rows: <span class="number">33.33%</span> <span class="number">33.33%</span> <span class="number">33.33%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>可以使用<code>repeat()</code>函数简化写法：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">grid-template-<span class="attribute">columns</span>: <span class="built_in">repeat</span>(<span class="number">3</span>, <span class="number">33.33%</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">grid-template-<span class="attribute">columns</span>: <span class="built_in">repeat</span>(<span class="number">2</span>, <span class="number">100px</span> <span class="number">20px</span> <span class="number">80px</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="auto-fill-关键字">auto-fill 关键字</h4>
+<p>有时，单元格的大小是固定的，但是容器的大小不确定。如果希望每一行（或每一列）容纳尽可能多的单元格，这时可以使用<code>auto-fill</code>关键字表示自动填充。</p>
+<blockquote>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  grid-template-<span class="attribute">columns</span>: <span class="built_in">repeat</span>(auto-fill, <span class="number">100px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="fr关键字">fr关键字</h4>
+<p>为了方便表示比例关系，网格布局提供了<code>fr</code>关键字（fraction 的缩写，意为&quot;片段&quot;）。如果两列的宽度分别为<code>1fr</code>和<code>2fr</code>，就表示后者是前者的两倍。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  grid-template-<span class="attribute">columns</span>: <span class="number">150px</span> <span class="number">1</span>fr <span class="number">2</span>fr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="minmax">minmax()</h4>
+<p><code>minmax()</code>函数产生一个长度范围，表示长度就在这个范围之中。它接受两个参数，分别为最小值和最大值。</p>
+<blockquote>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">grid-template-<span class="attribute">columns</span>: <span class="number">1</span>fr <span class="number">1</span>fr <span class="built_in">minmax</span>(<span class="number">100px</span>, <span class="number">1</span>fr);</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>上面代码中，<code>minmax(100px, 1fr)</code>表示列宽不小于<code>100px</code>，不大于<code>1fr</code>。</p>
+<h4 id="auto关键字">auto关键字</h4>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://redifinition.github.io/2022/03/05/grid/">https://redifinition.github.io/2022/03/05/grid/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://redifinition.github.io" target="_blank">Joe's five-dimensional space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post_share"><div class="social-share" data-image="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-j3qeyq_3840x2880.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/03/02/emo202232/"><img class="next-cover" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E6%A8%B1%E8%8A%B1.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">一个梦---谈谈保留这首歌</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Joe</div><div class="author-info__description">同济大学软件学院2019级梁乔‍</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/redifinition" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:19921305202@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成都人也。同济大学软件学院2019级学生，喜欢记录一些自己像记录的东西和故事。热爱运动，喜欢乒乓球🏓、长跑🏃‍、健身🏋️‍、游泳🏊。热爱记录美食，啥都爱吃。对闭眼唱情歌上瘾。第三针新冠疫苗已打。家有鹦鹉，偶尔中二，偶尔网抑，永远阳光。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">CSS Grid 网格布局教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Grid-%E4%B8%8E-Flex-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text">1 Grid 与 Flex 的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.</span> <span class="toc-text">2 基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%AE%B9%E5%99%A8%E5%92%8C%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 容器和项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%A1%8C%E5%92%8C%E5%88%97"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 行和列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E5%8D%95%E5%85%83%E6%A0%BC%E5%92%8C%E7%BD%91%E6%A0%BC%E7%BA%BF"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3 单元格和网格线</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%B9%E5%99%A8%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.</span> <span class="toc-text">3 容器属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-display%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 display属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-grid-template-columns-%E5%B1%9E%E6%80%A7%EF%BC%8C-grid-template-rows-%E5%B1%9E%E6%80%A7"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 grid-template-columns 属性， grid-template-rows 属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#auto-fill-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">auto-fill 关键字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fr%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">fr关键字</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#minmax"><span class="toc-number">1.3.2.3.</span> <span class="toc-text">minmax()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#auto%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">1.3.2.4.</span> <span class="toc-text">auto关键字</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/05/grid/" title="html/css/js三件套复习--grid布局"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-j3qeyq_3840x2880.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="html/css/js三件套复习--grid布局"/></a><div class="content"><a class="title" href="/2022/03/05/grid/" title="html/css/js三件套复习--grid布局">html/css/js三件套复习--grid布局</a><time datetime="2022-03-04T16:30:14.000Z" title="发表于 2022-03-05 00:30:14">2022-03-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/02/emo202232/" title="一个梦---谈谈保留这首歌"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E6%A8%B1%E8%8A%B1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一个梦---谈谈保留这首歌"/></a><div class="content"><a class="title" href="/2022/03/02/emo202232/" title="一个梦---谈谈保留这首歌">一个梦---谈谈保留这首歌</a><time datetime="2022-03-02T15:52:22.000Z" title="发表于 2022-03-02 23:52:22">2022-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/02/book1/" title="被讨厌的勇气--读书心得"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E8%A2%AB%E8%AE%A8%E5%8E%8C%E7%9A%84%E5%8B%87%E6%B0%94.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="被讨厌的勇气--读书心得"/></a><div class="content"><a class="title" href="/2022/03/02/book1/" title="被讨厌的勇气--读书心得">被讨厌的勇气--读书心得</a><time datetime="2022-03-02T03:31:22.000Z" title="发表于 2022-03-02 11:31:22">2022-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/01/running/" title="说说跑步这件事"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/IMG_9763(20220301-234114).JPG" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="说说跑步这件事"/></a><div class="content"><a class="title" href="/2022/03/01/running/" title="说说跑步这件事">说说跑步这件事</a><time datetime="2022-03-01T15:27:02.000Z" title="发表于 2022-03-01 23:27:02">2022-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/05/Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/" title="Leetcode刷题笔记--数组"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/leetcode.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode刷题笔记--数组"/></a><div class="content"><a class="title" href="/2022/02/05/Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0-%E6%95%B0%E7%BB%84/" title="Leetcode刷题笔记--数组">Leetcode刷题笔记--数组</a><time datetime="2022-02-05T08:33:55.000Z" title="发表于 2022-02-05 16:33:55">2022-02-05</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-e7p2pk_3840x1600.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 By Joe</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到Joe的个人博客！<br><a target="_blank" rel="noopener" href="https://beian.aliyun.com/?spm=a2cmq.17629970.0.0.f0d079fehkNnwX"><img class="icp-icon" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%9B%BD%E5%BE%BD1024.png"><span>蜀ICP备2022004251号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'fb5d3e29fb620a53ccb4',
+      clientSecret: '10e8e9a817b2577caba38110f25c3bdb7d2eae73',
+      repo: 'redifinition.github.io',
+      owner: 'redifinition',
+      admin: ['redifinition'],
+      id: '50c794849d0d5962f45a681dfdb8bacf',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script>((window.gitter = {}).chat = {}).options = {
+  disableDefaultChat: true,
+};
+document.addEventListener('gitter-sidecar-ready', (e) => {
+  const GitterChat = e.detail.Chat
+  let chat
+
+  function initGitter () {
+    chat = new GitterChat({
+      room: 'JokerJoeRoom/community',
+      activationElement: '#chat_btn'
+    });
+  }
+
+  initGitter()
+
+  if (false) {
+    document.addEventListener('pjax:complete', () => {
+      chat.destroy()
+      initGitter()
+    })
+  }
+
+})</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="async" defer="defer"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
