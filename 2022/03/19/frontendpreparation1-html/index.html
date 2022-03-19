@@ -1,0 +1,412 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>前端面试知识手册--html/css篇 | Joe's five-dimensional space</title><meta name="keywords" content="前端"><meta name="author" content="Joe"><meta name="copyright" content="Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载自一位大牛的总结仓库，搬运过来方便自己查阅~ 原仓库地址 HTML&amp;CSS篇（第一个版本该篇预计总结常见问题20个左右），HTML&amp;CSS不少问题都能体现应届生对于前端基础的掌握程度，是应届生求职时不可忽视的重要一环 HTML&#x2F;CSS 浏览器解析渲染页面过程 大致过程： HTML解析构建DOM-&gt;CSS解析构建CSSOM树-&gt;根据DOM树和CSSOM树构建rend">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试知识手册--html&#x2F;css篇">
+<meta property="og:url" content="https://qiaoliang.website/2022/03/19/frontendpreparation1-html/index.html">
+<meta property="og:site_name" content="Joe&#39;s five-dimensional space">
+<meta property="og:description" content="转载自一位大牛的总结仓库，搬运过来方便自己查阅~ 原仓库地址 HTML&amp;CSS篇（第一个版本该篇预计总结常见问题20个左右），HTML&amp;CSS不少问题都能体现应届生对于前端基础的掌握程度，是应届生求职时不可忽视的重要一环 HTML&#x2F;CSS 浏览器解析渲染页面过程 大致过程： HTML解析构建DOM-&gt;CSS解析构建CSSOM树-&gt;根据DOM树和CSSOM树构建rend">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/vscode.png">
+<meta property="article:published_time" content="2022-03-19T15:05:09.000Z">
+<meta property="article:modified_time" content="2022-03-19T15:14:11.097Z">
+<meta property="article:author" content="Joe">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/vscode.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://qiaoliang.website/2022/03/19/frontendpreparation1-html/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '前端面试知识手册--html/css篇',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-19 23:14:11'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-pkveo9_3840x1600.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Joe's five-dimensional space</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">前端面试知识手册--html/css篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-19T15:05:09.000Z" title="发表于 2022-03-19 23:05:09">2022-03-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-19T15:14:11.097Z" title="更新于 2022-03-19 23:14:11">2022-03-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E7%BB%8F/">面经</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="前端面试知识手册--html/css篇"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><hr>
+<p>转载自一位大牛的总结仓库，搬运过来方便自己查阅~<br>
+<a target="_blank" rel="noopener" href="https://github.com/okaychen/FE-Interview-Brochure">原仓库地址</a></p>
+<p>HTML&amp;CSS篇（第一个版本该篇预计总结常见问题20个左右），HTML&amp;CSS不少问题都能体现应届生对于前端基础的掌握程度，是应届生求职时不可忽视的重要一环</p>
+<h1>HTML/CSS</h1>
+<h2 id="浏览器解析渲染页面过程">浏览器解析渲染页面过程</h2>
+<p>大致过程：</p>
+<p>HTML解析构建DOM-&gt;CSS解析构建CSSOM树-&gt;根据DOM树和CSSOM树构建render树-&gt;根据render树进行布局渲染render layer-&gt;根据计算的布局信息进行绘制</p>
+<p>不同浏览器的内核不同，所以渲染过程其中有部分细节有不一样，以webkit主流程为例：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/okaychen/CDN@2.0/brochure/image/browser.jpg" alt=""></p>
+<p>一篇很棒的文章(需科学上网)：<a target="_blank" rel="noopener" href="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/">How Browser Work</a></p>
+<blockquote>
+<p>编者有话说：浏览器解析渲染页面过程是一个复杂的过程，其中有不少的细节和规则，如果把上面分享的文章翻译成译文，至少有3～5页PDF左右，所以这里只能总结大致过程（作为面试回答【很可能让回答的尽可能详细】了解来说已经足够，更深入的了解可以好好读下上面那篇文章）</p>
+</blockquote>
+<p>较详细过程：</p>
+<p>HTML解析构建DOM树：其中HTML Parser就起到了将HTML标记解析成DOM Tree的作用，HTML Parser将文本的HTML文档，提炼出关键信息，嵌套层级的树形结构，便于计算拓展；这其中也有很多的规则和操作，比如容错机制，识别特殊标签<code>&lt;br&gt;&lt;/br&gt;</code>等</p>
+<p>CSS解析构建CSSOM树：CSS Parser将很多个CSS文件中的样式合并解析出具有树形结构Style Rules，也叫做CSSOM。</p>
+<blockquote>
+<p>※其中还有一个细节是浏览器解析文档：当遇到<code>&lt;script&gt;</code>标签的时候会停止解析文档，立即解析脚本，将脚本中改变DOM和CSS的地方分别解析出来，追加到DOM Tree和CSSOM上</p>
+</blockquote>
+<p>根据DOM树和CSSOM树构建Render树：Render Tree的构建其实就是DOM Tree和CSSOM Attach的过程，在webkit中，解析样式和创建呈现器的过程称为&quot;附加&quot;，每个DOM节点都有一个&quot;attach&quot;方法，Render Tree其实就相当于一个计算好样式，与HTML对应的Tree</p>
+<p>根据Render树进行布局渲染render layer：创建渲染树后，Layout根据根据渲染树中渲染对象的信息，计算好每一个渲染对象的位置和尺寸，将其放在浏览器窗口的正确位置，某些时候会在文档布局完成之后进行DOM修改，重新布局的过程就称为回流</p>
+<blockquote>
+<p>※其中计算（样式计算）一个复杂的过程，因为DOM中的一个元素可以对应样式表中的多个元素，Firefox采用了规则树和样式上下文树来简化样式计算，规则树包含了所有已知规则的匹配路径，样式上下文包含端值，webkit也有样式对象，但它们不保存在类似上下文树这样的结构中，只是由DOM节点指向此类对象的相关样式</p>
+</blockquote>
+<p>根据计算的布局信息进行绘制：绘制阶段则会遍历呈现树，并调用呈现器的paint方法，将呈现器的内容显示在屏幕上，绘制的顺序其实就是元素进入堆栈样式上下文的顺序，例如，块呈现器的堆栈顺序如下：1.背景颜色，2.背景图片，3.边框，4.子代，5.轮廓</p>
+<h2 id="回流和重绘区别-减少回流重绘次数的方法">回流和重绘区别&amp;减少回流重绘次数的方法</h2>
+<p>区别：</p>
+<ul>
+<li>回流指当前窗口发生改变，发生滚动操作，或者元素的位置大小相关属性被更新时会触发布局过程，发生在render树，比如元素的几何尺寸变化，就需要重新验证并计算Render Tree</li>
+<li>重绘指当前视觉样式属性被更新时触发的绘制过程，发生在渲染层render layer</li>
+<li>所以相比之下，回流的成本要比重绘高得多</li>
+</ul>
+<p>减少回流重绘次数的方法：</p>
+<ul>
+<li>1）避免一条一条的修改DOM样式，而是修改className或者style.classText</li>
+<li>2）对元素进行一个复杂的操作，可以先隐藏它，操作完成后在显示</li>
+<li>3）在需要经常获取那些引起浏览器回流的属性值时，要缓存到变量中</li>
+<li>4）不使用table布局，一个小的改动可能就会引起整个table重新布局</li>
+<li>5）在内存中多次操作节点，完成后在添加到文档中</li>
+</ul>
+<h2 id="关于transform开启GPU加速渲染，相比top-left，优势在哪里">关于transform开启GPU加速渲染，相比top&amp;left，优势在哪里</h2>
+<blockquote>
+<p>页面性能优化有一条，用transform代替top，left来实现动画。那么transform的优势在哪里？如何开启GPU加速渲染？开启GPU硬件加速可能会触发的问题，如何解决？</p>
+</blockquote>
+<p>首先相比定位的top&amp;left来说，transform不会引起整个页面的回流和重绘。其次我们可以通过transform开启GPU硬件加速，提高渲染速度，但相应的transform也会占用更多的内存。</p>
+<h2 id="transform如何开启GPU硬件加速">transform如何开启GPU硬件加速</h2>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">transform</span>:<span class="built_in">translateZ</span>(<span class="number">0</span>);</span><br><span class="line">    //或者</span><br><span class="line">    transfor:<span class="built_in">translate3d</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="开启GPU硬件加速可能会触发哪些问题，如何处理">开启GPU硬件加速可能会触发哪些问题，如何处理</h2>
+<p>可能会导致浏览器频繁闪烁或者抖动，解决方案：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">backface-visibility</span>: hidden;</span><br><span class="line">    <span class="attribute">perspective</span>: <span class="number">1000</span>;</span><br><span class="line">    -webkit-<span class="attribute">backface-visibility</span>: hidden;</span><br><span class="line">    -webkit-<span class="attribute">perspective</span>: <span class="number">1000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="移动端点透现象有遇到过嘛">移动端点透现象有遇到过嘛</h2>
+<p>首先需要了解的是，移动端在touch上一共有4个事件，</p>
+<p>执行顺序为<code>touchstart -&gt; touchmove -&gt; touchend -&gt; touchcancel</code></p>
+<p>当用户点击屏幕时，会触发touch和click事件，touch事件会优先处理，touch事件经过捕获，目标，冒泡一系列流程处理完成之后，才会触发click，所有我们经常会谈到移动端点击事件300ms延迟的问题</p>
+<p>移动端点击事件300ms问题，常见的解决方案：</p>
+<ul>
+<li>阻止用户双击缩放，并限制视口大小</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;meta name=&quot;viewport&quot; <span class="attribute">content</span>=&quot;<span class="attribute">width</span>=device-<span class="attribute">width</span>,<span class="attribute">initial</span>-scale=<span class="number">1</span>,minimum-scale=<span class="number">1</span>,maximum-scale=<span class="number">1</span>,user-scalable=no&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设置css<code>touch-action</code>用于指定某个给定的区域是否允许用户操作，以及如何相应用户操作</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  touch-action: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>fastclick.js来解决，其原理是在检测到touchend事件的时候，会通过自定义事件立即触发模拟一个click事件，并在300ms之后把真正的click事件阻止掉</li>
+</ul>
+<p>点透现象：</p>
+<p>发生条件：①按钮A和按钮B不是后代继承关系，②A发生touch，A touch后立即消失，B绑定click，③A z-index大于B，即 A 显示在 B 浮层之上</p>
+<p>发生原因：当点击屏幕时，系统生成touch和click两个事件，touch先执行，touch执行完之后A消失，然后要执行click的时候，就会发现用户点击的是B，所以就执行了B的click</p>
+<p>解决方法：①阻止默认事件，在touch的某个时间段执行event.preventDefault，去取消系统生成的click事件，一半在 touchend 中执行。②要消失的元素延迟300ms后在消失</p>
+<h2 id="Doctype是什么，三种模式的区别在什么地方">Doctype是什么，三种模式的区别在什么地方</h2>
+<p>Doctype是一种DTD文档定义类型，必须声明在HTML文档的第一行，用来规范文档使用哪种方式解析HTML，三种模式分别是怪异模式，标准模式，近乎模式(IE8的一种近乎于前两者之间的一种模式)；标准模式按照HTML和CSS定义渲染，怪异模式会模拟更旧的浏览器行为</p>
+<h2 id="说说对两种盒模型的理解">说说对两种盒模型的理解</h2>
+<p>标准盒模型和IE怪异盒模型，标准盒模型下：盒子总宽度/高度=width/height+padding+border+margin</p>
+<p><img src="https://cdn.jsdelivr.net/gh/okaychen/CDN@2.0/brochure/image/box_model01.png" alt=""></p>
+<p>怪异盒模型，IE5.X 和 6 在怪异模式中使用自己的非标准模型，盒子的总宽度和高度是包含内边距padding和边框border宽度在内的：盒子总宽度/高度=width/height + margin = width/height + margin;</p>
+<p><img src="https://cdn.jsdelivr.net/gh/okaychen/CDN@2.0/brochure/image/box_model02.png" alt=""></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">box-sizing</span> : content-box || border-box || inherit;</span><br></pre></td></tr></table></figure>
+<p>boxsizing属性content-box使用标准盒模型的计算方式，border-box则使用怪异盒模型的计算方式</p>
+<h2 id="margin塌陷和合并问题">margin塌陷和合并问题</h2>
+<p>首先，margin塌陷是相对于父子级关系的两个元素，而margin合并是相对两个兄弟级关系的两个元素</p>
+<p>两个兄弟级关系的元素，垂直方向上的margin，其外边距会发生重叠现象，两者两个的外边距取的是两个所设置margin的最大值，就是所说的margin合并问题</p>
+<p>两个父子级关系的元素，垂直方向上的margin会粘合在一起，外层和模型的margin-top取两个元素中margin-top的最大值，发生margin塌陷的内层元素相对于整个文档移动</p>
+<p>解决方案：两者都可以通过触发BFC来解决</p>
+<h2 id="关于IFC和BFC，哪些元素会触发BFC">关于IFC和BFC，哪些元素会触发BFC</h2>
+<p>首先需要知道文档流分为定位流，浮动流和普通流三种，而普通流则是BFC中的FC（格式化上下文），它是页面的一块渲染区域，有一套渲染规则，决定了子元素如何布局，以及和其他元素之间的关系和作用，常见的FC有BFC，IFC，还有GFC和FFC</p>
+<p>BFC块级格式化上下文，IFC行级格式化上下文，</p>
+<p>哪些元素会触发BFC：</p>
+<ul>
+<li>根元素</li>
+<li>float的属性不为none</li>
+<li>position属性为absolute或fixed</li>
+<li>display为inline-block，table-cell，table-caption，flex</li>
+<li>overflow不为visible</li>
+</ul>
+<h2 id="CSS定位的方式有哪些分别相对于谁">CSS定位的方式有哪些分别相对于谁</h2>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">static(默认值)</span><br><span class="line">absolute(绝对定位，相对于最近已定位的父元素，如果没有则相对于&lt;<span class="selector-tag">html</span>&gt;)</span><br><span class="line">fixed(固定定位，相对于窗口)</span><br><span class="line">relative(相对定位，相对于自身)</span><br><span class="line">sticky(<span class="number">2017</span>年浏览器开始支持，粘性定位)</span><br></pre></td></tr></table></figure>
+<p>absolute会使元素位置与文档流无关，不占据空间，absolute 定位的元素和其他元素重叠</p>
+<p>relative相对定位时，无论元素是否移动，仍然占据原来的空间</p>
+<p>sticky是2017年浏览器才开始支持，会产生动态效果，类似relative和fixed的结合，一个实例是&quot;<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/11/css-position.html">动态固定</a>&quot;，生效前提是必须搭配<code>top,left,bottom,right</code>一起使用，不能省略，否则等同于<code>relative</code>定位，不产生&quot;动态固定&quot;的效果</p>
+<h2 id="移动端布局的解决方案，平时怎么做的处理">移动端布局的解决方案，平时怎么做的处理</h2>
+<ul>
+<li>使用Flexbox</li>
+<li>百分比布局结合媒体查询</li>
+<li>使用rem</li>
+</ul>
+<p>rem转换像素大小（根元素的大小乘以rem值），取决与页面根元素的字体大小，即HTML元素的字体大小</p>
+<p>em转换像素大小（em值乘以使用em单位的元素的字体大小），比如一个div的字体大小为16px，那么10em就是180px（或者接近它）</p>
+<p>rem平时怎么做的转换：为了方便计算，时常将html的字体大小设置为62.5%，那么12px就会是1.2rem</p>
+<h2 id="垂直水平居中的多种解决方案">垂直水平居中的多种解决方案</h2>
+<h3 id="未知宽高元素实现垂直水平居中">未知宽高元素实现垂直水平居中</h3>
+<p>① flex实现水平垂直居中</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">600px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: auto;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid yellow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>② 进行垂直水平居中（利用transform中translate偏移的百分比值是相对于自身大小的特性）</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">      <span class="attribute">position</span>: relative;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">600px</span>;</span><br><span class="line">      <span class="attribute">margin</span>: auto;</span><br><span class="line">      <span class="attribute">border</span>: <span class="number">1px</span> solid yellow;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">      <span class="attribute">position</span>: absolute;</span><br><span class="line">      <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">      <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">      <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.method3</span> &#123;</span><br><span class="line">      <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">      <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">      <span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>, -<span class="number">50%</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="已知宽高元素的垂直水平居中">已知宽高元素的垂直水平居中</h3>
+<p>① 绝对定位+<code>margin:auto</code></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">600px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>② 使用绝对定位与负边距</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">600px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: auto;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">margin</span>: -<span class="number">50px</span> <span class="number">0</span> <span class="number">0</span> -<span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="经典的三栏布局的实现方式">经典的三栏布局的实现方式</h2>
+<p>三栏布局：两侧定宽中间自适应，在开发中很常见的布局方式，主要有下面六种实现方式：</p>
+<ul>
+<li>最简单的方式就是通过float实现</li>
+<li>利用绝对定位</li>
+<li>利用BFC规则</li>
+<li>圣杯布局（通过margin负值调整）</li>
+<li>双飞翼布局（和双飞翼布局类似，只是处理中间栏被遮挡的方式不同：双飞翼布局在中间栏内部加一个div，设置其margin来避开遮挡）</li>
+<li>利用flex布局 👇 <em>Q14</em></li>
+</ul>
+<h2 id="对flex布局的了解，flex如何实现经典的三栏布局">对flex布局的了解，flex如何实现经典的三栏布局</h2>
+<p>flex意为弹性布局，有两大概念，一是容器(container)，二是项目(item)，两者都有各自的六个常用属性</p>
+<p>用在容器上的六个属性：</p>
+<ul>
+<li><code>flex-direction</code>主轴的方向，</li>
+<li><code>flex-wrap</code>一条轴线装满，如何换行，</li>
+<li><code>flex-flow</code>是前两者的简写，</li>
+<li><code>justify-content</code>项目在主轴上的对齐方式</li>
+<li><code>align-items</code>在交叉轴上如何对齐</li>
+<li><code>align-content</code>多跟轴线的对齐方式</li>
+</ul>
+<p>用在项目上的六个属性:</p>
+<ul>
+<li><code>order</code>排序顺序，默认为0，越小越靠前</li>
+<li><code>flex-grow</code>项目的放大比例，默认为0，不放大</li>
+<li><code>flex-shrink</code>项目的缩小比例，默认为1，空间不足该项目会缩小</li>
+<li><code>flex-basis</code>项目占据主轴空间大小</li>
+<li><code>flex</code>是上面放大，缩小，大小三者的简写，默认为0 1 auto</li>
+<li><code>align-self</code>允许单个项目有不同于其他的对齐方式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!--flex实现经典的三栏布局--&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">.flex-container&#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    height: 200px;</span><br><span class="line">&#125;</span><br><span class="line">.middle &#123;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background-color: yellowgreen;</span><br><span class="line">    flex-grow: 1;</span><br><span class="line">&#125;</span><br><span class="line">.left,.right &#123;</span><br><span class="line">    height: 200px;</span><br><span class="line">    flex: 0 1 200px;</span><br><span class="line">    background-color: green;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;flex-container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;left&quot;&gt;左侧内容&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;middle&quot;&gt;中间内容&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;right&quot;&gt;右侧内容&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/okaychen/CDN@2.0/brochure/image/layout01.png" alt=""></p>
+<h2 id="说说你知道的清除浮动的方法，知道其中的原理嘛">说说你知道的清除浮动的方法，知道其中的原理嘛</h2>
+<p>清除浮动主要是为了解决父元素因为子元素浮动内部高度为0的问题</p>
+<ul>
+<li>额外标签，即在最后一个浮动标签后加一个空div，给其设置<code>clear:both</code>，缺点是增加无意义标签，语义化差</li>
+<li>给父级元素添加<code>overflow:不为visible</code>通过触发BFC的方式清除浮动</li>
+<li>使用after伪元素，缺点是IE6-7不支持伪元素，zoom:1触发hasLayout</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span>:after&#123;</span><br><span class="line">    content:<span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="attribute">display</span>:block;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">clear</span>:both;</span><br><span class="line">    <span class="attribute">visibility</span>:hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span>&#123;</span><br><span class="line">    *zoom:<span class="number">1</span>; <span class="comment">/*ie6清除浮动的方式 *只有IE6-IE7执行*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用before和after双伪元素清除浮动</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span>:after,.clearfix:before&#123;</span><br><span class="line">    content:<span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="attribute">display</span>:table;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span>:after&#123;</span><br><span class="line">    clear:both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clear</span>&#123;</span><br><span class="line">    *zoom:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="对css-sprits的理解，好处是什么">对css sprits的理解，好处是什么</h2>
+<p>css sprits又名雪碧图，也叫css精灵，开发人员会将很多小图标合并在一起之后的图片成为雪碧图，使用时通过background-image、background-position和background-size属性，将对应的小图标添加元素中</p>
+<p>优点是：</p>
+<ul>
+<li>减少加载多张图片的HTTP请求数</li>
+<li>可以提前加载资源</li>
+</ul>
+<p>缺点是：</p>
+<ul>
+<li>维护成本较高，需要改动这张合并的图片</li>
+<li>加载优势在http2之后不复存在，http2采用多路复用，多张图片也可以重复使用一个连接</li>
+</ul>
+<h2 id="说一下前端的几种存储方式">说一下前端的几种存储方式</h2>
+<p>cookie，localstorage，sessionstorage，IndexedDB</p>
+<p>（追问）这些方式的区别是什么，分别介绍一下：</p>
+<ul>
+<li>cookie：HTML5标准前本地存储主要方式，请求头带着数据，缺点是大小只有4k左右，并且自动请求头加入cookie浪费流量，每个domain限制20个cookie，使用起来也麻烦需要自行封装</li>
+<li>localstorage：HTML5标准后加入，以键值对（key-value）方式存储，永久存储，永不失效，除非手动删除，IE8+支持，每个域名限制5M</li>
+<li>sessionstorage：和localstorage操作方法一样，区别在于sessionstorage在关闭页面后即被清空，刷新不会清空，但是不能在所有同源窗口中共享，是会话级别的存储方式</li>
+<li>IndexedDB：被纳入HTML5标准的数据库存储方案，它是一个NoSql数据库，用键值对进行存储，可以快速读取操作，适合web场景和JavaScript操作</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiaoliang.website/2022/03/19/frontendpreparation1-html/">https://qiaoliang.website/2022/03/19/frontendpreparation1-html/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiaoliang.website" target="_blank">Joe's five-dimensional space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post_share"><div class="social-share" data-image="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/vscode.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/03/18/leetcode-2/"><img class="next-cover" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/bigdata.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Leetcode刷题笔记-链表</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/05/grid/" title="html/css/js三件套复习--grid布局"><img class="cover" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-j3qeyq_3840x2880.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-05</div><div class="title">html/css/js三件套复习--grid布局</div></div></a></div><div><a href="/2022/03/07/screen/" title="web端服务器部署基本步骤"><img class="cover" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/linux.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-07</div><div class="title">web端服务器部署基本步骤</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Joe</div><div class="author-info__description">同济大学软件学院2019级梁乔‍</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/redifinition" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:19921305202@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成都人也。同济大学软件学院2019级学生，喜欢记录一些自己像记录的东西和故事。热爱运动，喜欢乒乓球🏓、长跑🏃‍、健身🏋️‍、游泳🏊。热爱记录美食，啥都爱吃。对闭眼唱情歌上瘾。第三针新冠疫苗已打。家有鹦鹉，偶尔中二，偶尔网抑，永远阳光。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">HTML&#x2F;CSS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E8%BF%87%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">浏览器解析渲染页面过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E6%B5%81%E5%92%8C%E9%87%8D%E7%BB%98%E5%8C%BA%E5%88%AB-%E5%87%8F%E5%B0%91%E5%9B%9E%E6%B5%81%E9%87%8D%E7%BB%98%E6%AC%A1%E6%95%B0%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">回流和重绘区别&amp;减少回流重绘次数的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Etransform%E5%BC%80%E5%90%AFGPU%E5%8A%A0%E9%80%9F%E6%B8%B2%E6%9F%93%EF%BC%8C%E7%9B%B8%E6%AF%94top-left%EF%BC%8C%E4%BC%98%E5%8A%BF%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="toc-number">1.3.</span> <span class="toc-text">关于transform开启GPU加速渲染，相比top&amp;left，优势在哪里</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#transform%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AFGPU%E7%A1%AC%E4%BB%B6%E5%8A%A0%E9%80%9F"><span class="toc-number">1.4.</span> <span class="toc-text">transform如何开启GPU硬件加速</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AFGPU%E7%A1%AC%E4%BB%B6%E5%8A%A0%E9%80%9F%E5%8F%AF%E8%83%BD%E4%BC%9A%E8%A7%A6%E5%8F%91%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%8C%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86"><span class="toc-number">1.5.</span> <span class="toc-text">开启GPU硬件加速可能会触发哪些问题，如何处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%82%B9%E9%80%8F%E7%8E%B0%E8%B1%A1%E6%9C%89%E9%81%87%E5%88%B0%E8%BF%87%E5%98%9B"><span class="toc-number">1.6.</span> <span class="toc-text">移动端点透现象有遇到过嘛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Doctype%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%8C%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB%E5%9C%A8%E4%BB%80%E4%B9%88%E5%9C%B0%E6%96%B9"><span class="toc-number">1.7.</span> <span class="toc-text">Doctype是什么，三种模式的区别在什么地方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E8%AF%B4%E5%AF%B9%E4%B8%A4%E7%A7%8D%E7%9B%92%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%90%86%E8%A7%A3"><span class="toc-number">1.8.</span> <span class="toc-text">说说对两种盒模型的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#margin%E5%A1%8C%E9%99%B7%E5%92%8C%E5%90%88%E5%B9%B6%E9%97%AE%E9%A2%98"><span class="toc-number">1.9.</span> <span class="toc-text">margin塌陷和合并问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EIFC%E5%92%8CBFC%EF%BC%8C%E5%93%AA%E4%BA%9B%E5%85%83%E7%B4%A0%E4%BC%9A%E8%A7%A6%E5%8F%91BFC"><span class="toc-number">1.10.</span> <span class="toc-text">关于IFC和BFC，哪些元素会触发BFC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS%E5%AE%9A%E4%BD%8D%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E5%88%86%E5%88%AB%E7%9B%B8%E5%AF%B9%E4%BA%8E%E8%B0%81"><span class="toc-number">1.11.</span> <span class="toc-text">CSS定位的方式有哪些分别相对于谁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%8C%E5%B9%B3%E6%97%B6%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-number">1.12.</span> <span class="toc-text">移动端布局的解决方案，平时怎么做的处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD%E7%9A%84%E5%A4%9A%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.13.</span> <span class="toc-text">垂直水平居中的多种解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E7%9F%A5%E5%AE%BD%E9%AB%98%E5%85%83%E7%B4%A0%E5%AE%9E%E7%8E%B0%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="toc-number">1.13.1.</span> <span class="toc-text">未知宽高元素实现垂直水平居中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B2%E7%9F%A5%E5%AE%BD%E9%AB%98%E5%85%83%E7%B4%A0%E7%9A%84%E5%9E%82%E7%9B%B4%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="toc-number">1.13.2.</span> <span class="toc-text">已知宽高元素的垂直水平居中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E7%9A%84%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-number">1.14.</span> <span class="toc-text">经典的三栏布局的实现方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9flex%E5%B8%83%E5%B1%80%E7%9A%84%E4%BA%86%E8%A7%A3%EF%BC%8Cflex%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BB%8F%E5%85%B8%E7%9A%84%E4%B8%89%E6%A0%8F%E5%B8%83%E5%B1%80"><span class="toc-number">1.15.</span> <span class="toc-text">对flex布局的了解，flex如何实现经典的三栏布局</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E8%AF%B4%E4%BD%A0%E7%9F%A5%E9%81%93%E7%9A%84%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C%E7%9F%A5%E9%81%93%E5%85%B6%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%90%86%E5%98%9B"><span class="toc-number">1.16.</span> <span class="toc-text">说说你知道的清除浮动的方法，知道其中的原理嘛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9css-sprits%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E5%A5%BD%E5%A4%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.17.</span> <span class="toc-text">对css sprits的理解，好处是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E4%B8%80%E4%B8%8B%E5%89%8D%E7%AB%AF%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">1.18.</span> <span class="toc-text">说一下前端的几种存储方式</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/19/frontendpreparation1-html/" title="前端面试知识手册--html/css篇"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/vscode.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端面试知识手册--html/css篇"/></a><div class="content"><a class="title" href="/2022/03/19/frontendpreparation1-html/" title="前端面试知识手册--html/css篇">前端面试知识手册--html/css篇</a><time datetime="2022-03-19T15:05:09.000Z" title="发表于 2022-03-19 23:05:09">2022-03-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/18/leetcode-2/" title="Leetcode刷题笔记-链表"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/bigdata.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode刷题笔记-链表"/></a><div class="content"><a class="title" href="/2022/03/18/leetcode-2/" title="Leetcode刷题笔记-链表">Leetcode刷题笔记-链表</a><time datetime="2022-03-18T06:35:52.000Z" title="发表于 2022-03-18 14:35:52">2022-03-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/17/ildasm/" title="使用ildasm工具分析C# 闭包外部变量实现原理"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/csharp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用ildasm工具分析C# 闭包外部变量实现原理"/></a><div class="content"><a class="title" href="/2022/03/17/ildasm/" title="使用ildasm工具分析C# 闭包外部变量实现原理">使用ildasm工具分析C# 闭包外部变量实现原理</a><time datetime="2022-03-17T05:49:31.000Z" title="发表于 2022-03-17 13:49:31">2022-03-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/11/weilai/" title="蔚来面试问题记录"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwww2.autoimg.cn%2Fchejiahaodfs%2Fg6%2FM0F%2FA8%2FE4%2Fautohomecar__ChwEmGD5LmGACwxUAA17ykTgx5M422.jpg&amp;refer=http%3A%2F%2Fwww2.autoimg.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1649589413&amp;t=11e254329ff5a4c701701df6f19d5f0c" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蔚来面试问题记录"/></a><div class="content"><a class="title" href="/2022/03/11/weilai/" title="蔚来面试问题记录">蔚来面试问题记录</a><time datetime="2022-03-11T11:12:15.000Z" title="发表于 2022-03-11 19:12:15">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/09/muscle/" title="说说健身这件事"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/image-20220309235546995.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="说说健身这件事"/></a><div class="content"><a class="title" href="/2022/03/09/muscle/" title="说说健身这件事">说说健身这件事</a><time datetime="2022-03-09T15:52:18.000Z" title="发表于 2022-03-09 23:52:18">2022-03-09</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-pkveo9_3840x1600.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 By Joe</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到Joe的个人博客！<br><a target="_blank" rel="noopener" href="https://beian.aliyun.com/?spm=a2cmq.17629970.0.0.f0d079fehkNnwX"><img class="icp-icon" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%9B%BD%E5%BE%BD1024.png"><span>蜀ICP备2022004251号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'fb5d3e29fb620a53ccb4',
+      clientSecret: '10e8e9a817b2577caba38110f25c3bdb7d2eae73',
+      repo: 'redifinition.github.io',
+      owner: 'redifinition',
+      admin: ['redifinition'],
+      id: '9a07c06d62ef41866f2fc7d51c535364',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script>((window.gitter = {}).chat = {}).options = {
+  disableDefaultChat: true,
+};
+document.addEventListener('gitter-sidecar-ready', (e) => {
+  const GitterChat = e.detail.Chat
+  let chat
+
+  function initGitter () {
+    chat = new GitterChat({
+      room: 'JokerJoeRoom/community',
+      activationElement: '#chat_btn'
+    });
+  }
+
+  initGitter()
+
+  if (false) {
+    document.addEventListener('pjax:complete', () => {
+      chat.destroy()
+      initGitter()
+    })
+  }
+
+})</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="async" defer="defer"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
