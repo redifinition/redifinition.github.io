@@ -1,0 +1,262 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>javascript学习笔记--this指向问题 | Joe's five-dimensional space</title><meta name="keywords" content="javascript"><meta name="author" content="Joe"><meta name="copyright" content="Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="javascript ——this指向问题 在总结节流和防抖问题时涉及到了this指向，加之在平时写项目时也会经常遇到，所以开个专题搞清楚一下这个很重要的概念吧。 在 JavaScript 中，this是“自由”的，它的值是在调用时计算出来的，它的值并不取决于方法声明的位置，而是取决于在“点符号前”的是什么对象。需要刻在DNA里的是，箭头函数没有自己的this，从箭头函数内部访问到的this都是从">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript学习笔记--this指向问题">
+<meta property="og:url" content="https://qiaoliang.website/2022/04/07/js-this/index.html">
+<meta property="og:site_name" content="Joe&#39;s five-dimensional space">
+<meta property="og:description" content="javascript ——this指向问题 在总结节流和防抖问题时涉及到了this指向，加之在平时写项目时也会经常遇到，所以开个专题搞清楚一下这个很重要的概念吧。 在 JavaScript 中，this是“自由”的，它的值是在调用时计算出来的，它的值并不取决于方法声明的位置，而是取决于在“点符号前”的是什么对象。需要刻在DNA里的是，箭头函数没有自己的this，从箭头函数内部访问到的this都是从">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50b203b6557b9563b5b173bcc19c1709.png&refer=http%3A%2F%2Fimg-blog.csdnimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893527&t=f3a7f3fcf3594d8003540210aa01226c">
+<meta property="article:published_time" content="2022-04-07T03:17:41.000Z">
+<meta property="article:modified_time" content="2022-04-07T03:19:17.484Z">
+<meta property="article:author" content="Joe">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50b203b6557b9563b5b173bcc19c1709.png&refer=http%3A%2F%2Fimg-blog.csdnimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893527&t=f3a7f3fcf3594d8003540210aa01226c"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://qiaoliang.website/2022/04/07/js-this/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'javascript学习笔记--this指向问题',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-07 11:19:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/cursor.css"><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img2.baidu.com/it/u=4228297245,3763622330&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=PNG?w=889&amp;h=500')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Joe's five-dimensional space</a></span><div id="he-plugin-simple"></div><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">javascript学习笔记--this指向问题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-07T03:17:41.000Z" title="发表于 2022-04-07 11:17:41">2022-04-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-07T03:19:17.484Z" title="更新于 2022-04-07 11:19:17">2022-04-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">学习总结</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="javascript学习笔记--this指向问题"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>javascript ——this指向问题</h1>
+<p>在总结节流和防抖问题时涉及到了this指向，加之在平时写项目时也会经常遇到，所以开个专题搞清楚一下这个很重要的概念吧。</p>
+<p>在 JavaScript 中，<code>this</code>是“自由”的，它的值是在调用时计算出来的，它的值并不取决于方法声明的位置，而是取决于在“点符号前”的是什么对象。需要刻在DNA里的是，箭头函数没有自己的this，从箭头函数内部访问到的this都是从外部获取的。</p>
+<p><strong>为什么要有this呢？</strong></p>
+<p>因为每一个函数中的变量都由运行环境（词法环境）提供，而不同的运行环境变量的含义不同，需要有一种机制能够在函数体内部获得当前的运行环境(context)。<strong>因此this设计的目的就是在函数体内部指代函数当前的运行环境</strong>。</p>
+<p>在理解this之前，我们需要记住以下两点：</p>
+<p><strong>1：this永远指向一个对象；</strong></p>
+<p><strong>2：this的指向完全取决于函数调用的位置，也可以说是函数的运行环境；</strong></p>
+<p>接下来对this使用最频繁的几种情况做一个总结，总共分为以下5种：</p>
+<h2 id="对象中的方法">对象中的方法</h2>
+<p>在对象中，当方法被作为属性时，存储的是属性的引用，即存储一个地址，指向堆中的函数。当函数进行调用时，this会根据运行环境的改变而改变，同时，函数中的this也<strong>只能在运行时才能最终确定运行环境</strong>；根据运行环境指向不同的对象。</p>
+<p>对于函数而言，引擎会将函数单独存在内存中，然后将函数的地址赋值给foo属性的value属性。而属性原始的对象以字典结构保存，每一个属性名都对应一个属性描述对象。</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201806/bg2018061803.png" alt="https://www.wangbase.com/blogimg/asset/201806/bg2018061803.png"></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">f</span>: f,</span><br><span class="line">  <span class="attr">x</span>: <span class="number">2</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 单独执行</span></span><br><span class="line">f() <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// obj 环境执行</span></span><br><span class="line">obj.f() <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，函数<code>f</code>在全局环境执行，<code>this.x</code>指向全局环境的<code>x</code>。</p>
+<p><img src="javascript%20a9cf3/Untitled.png" alt="Untitled"></p>
+<p>在<code>obj</code>环境执行，<code>this.x</code>指向<code>obj.x</code>。</p>
+<p><img src="javascript%20a9cf3/Untitled%201.png" alt="Untitled"></p>
+<h2 id="事件绑定中的this">事件绑定中的this</h2>
+<p>事件绑定共有三种方式：行内绑定、动态绑定、事件监听；</p>
+<p><strong>行内绑定的两种情况：</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;input type**=**<span class="string">&quot;button&quot;</span> value**=**<span class="string">&quot;按钮&quot;</span> onclick**=**<span class="string">&quot;clickFun()&quot;</span>&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    **<span class="function"><span class="keyword">function</span>** <span class="title">clickFun</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">        **<span class="built_in">this</span>** *<span class="comment">// 此函数的运行环境在全局window对象下，因此this指向window;*</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>**=<span class="string">**</span>&quot;<span class="attr">button</span>&quot; <span class="attr">value</span>**=<span class="string">**</span>&quot;按钮&quot; <span class="attr">onclick</span>**=<span class="string">**</span>&quot;<span class="attr">this</span>&quot;&gt;</span></span></span><br><span class="line"><span class="xml">*<span class="comment">&lt;!-- 运行环境在节点对象中，因此this指向本节点对象 --&gt;</span>*</span></span><br></pre></td></tr></table></figure>
+<p>行内绑定事件的语法是在html节点内，以节点属性的方式绑定，属性名是事件名称前面加’on’，属性的值则是一段可执行的 JS 代码段；而属性值最常见的就是一个函数调用；</p>
+<p><strong>动态绑定与事件监听：</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;button&quot;</span> value=<span class="string">&quot;按钮&quot;</span> id=<span class="string">&quot;btn&quot;</span>&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">var</span> btn= <span class="built_in">document</span>.getElementById(<span class="string">&#x27;btn&#x27;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    btn.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="built_in">this</span> ;<span class="comment">// this指向本节点对象</span></span></span></span><br><span class="line"><span class="javascript"><span class="xml">    &#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>因为动态绑定的事件本就是为节点对象的属性(事件名称前面加’on’)重新赋值为一个匿名函数，因此函数在执行时就是在节点对象的环境下，this自然就指向了本节点对象；</p>
+<p>事件监听中this指向的原理与动态绑定基本一致，所以不再阐述；</p>
+<h2 id="构造函数中的this">构造函数中的this</h2>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Pro</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="built_in">this</span>.x= <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line"><span class="built_in">this</span>.y=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p=<span class="keyword">new</span> Pro();</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic2.zhimg.com/80/v2-7ce5f71bd0865872b513a88fabb597fd_720w.jpg" alt="https://pic2.zhimg.com/80/v2-7ce5f71bd0865872b513a88fabb597fd_720w.jpg"></p>
+<h2 id="window定时器中的this">window定时器中的this</h2>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">fun</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setInterval</span>(obj.fun,<span class="number">1000</span>);      <span class="comment">// this指向window对象</span></span><br><span class="line"><span class="built_in">setInterval</span>(<span class="string">&#x27;obj.fun()&#x27;</span>,<span class="number">1000</span>);  <span class="comment">// this指向obj对象</span></span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，<code>setInterval(obj.fun,1000)</code> 的第一个参数是<code>obj</code>对象的<code>fun</code> ，因为 JS 中函数可以被当做值来做引用传递，实际就是将这个函数的地址当做参数传递给了 <code>setInterval</code> 方法，换句话说就是 <code>setInterval</code> 的第一参数接受了一个函数，那么此时1000毫秒后，函数的运行就已经是在window对象下了，也就是函数的调用者已经变成了window对象，所以其中的this则指向的全局window对象；</p>
+<p>而在 <code>setInterval('obj.fun()',1000)</code> 中的第一个参数，实际则是传入的一段可执行的 JS 代码；1000毫秒后当 JS 引擎来执行这段代码时，则是通过 <code>obj</code> 对象来找到 <code>fun</code> 函数并调用执行，那么函数的运行环境依然在 对象 <code>obj</code> 内，所以函数内部的this也就指向了 <code>obj</code> 对象；</p>
+<h2 id="call-apply-中的this">call(),apply()中的this</h2>
+<p>这个两个方法的最大作用基本就是用来强制指定函数调用时this的指向；</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiaoliang.website/2022/04/07/js-this/">https://qiaoliang.website/2022/04/07/js-this/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiaoliang.website" target="_blank">Joe's five-dimensional space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/javascript/">javascript</a></div><div class="post_share"><div class="social-share" data-image="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50b203b6557b9563b5b173bcc19c1709.png&amp;refer=http%3A%2F%2Fimg-blog.csdnimg.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893527&amp;t=f3a7f3fcf3594d8003540210aa01226c" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/04/07/gohomeproject/"><img class="prev-cover" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/biglogo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">归宿项目复盘体会--技术回顾</div></div></a></div><div class="next-post pull-right"><a href="/2022/04/07/debounc/"><img class="next-cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fqqpublic.qpic.cn%2Fqq_public%2F0%2F0-3103668252-AA9D34452424D52531C7C43B51D247B5%2F0%3Ffmt%3Djpg%26size%3D40%26h%3D383%26w%3D900%26ppv%3D1.jpg&amp;refer=http%3A%2F%2Fqqpublic.qpic.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893196&amp;t=d3afacc51b3f752ba61de0c55e8379fc" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">javascript--防抖与节流</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/04/07/debounc/" title="javascript--防抖与节流"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fqqpublic.qpic.cn%2Fqq_public%2F0%2F0-3103668252-AA9D34452424D52531C7C43B51D247B5%2F0%3Ffmt%3Djpg%26size%3D40%26h%3D383%26w%3D900%26ppv%3D1.jpg&refer=http%3A%2F%2Fqqpublic.qpic.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893196&t=d3afacc51b3f752ba61de0c55e8379fc" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-07</div><div class="title">javascript--防抖与节流</div></div></a></div><div><a href="/2022/03/21/javascript-zhengze/" title="javascript-正则表达式学习总结"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ffile.elecfans.com%2Fweb1%2FM00%2FAC%2F85%2FpIYBAF3CaR2ANBncAAGdCj_Rec4317.png&refer=http%3A%2F%2Ffile.elecfans.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650465256&t=d4f0cac444843c0a72e643156531bd42" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-21</div><div class="title">javascript-正则表达式学习总结</div></div></a></div><div><a href="/2022/03/26/javascript/" title="javascript基础知识回顾"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic3.zhimg.com%2Fv2-ca60b0a4404d7b76de259a74b7ad60da_1200x500.jpg&refer=http%3A%2F%2Fpic3.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650821891&t=725dfcffdd376d82d0eb2d14660bd210" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-26</div><div class="title">javascript基础知识回顾</div></div></a></div><div><a href="/2022/04/07/js-curring/" title="javascript--柯里化"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-ed9c5afe7c5276b0ee93f52b58d1d851_1200x500.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893839&t=02ae8fa9d105074f70e5f440071f4d8f" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-07</div><div class="title">javascript--柯里化</div></div></a></div><div><a href="/2022/04/07/js-function/" title="javascript--函数进阶总结"><img class="cover" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/js.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-07</div><div class="title">javascript--函数进阶总结</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Joe</div><div class="author-info__description">同济大学软件学院2019级梁乔‍</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/redifinition" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:19921305202@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成都人也。同济大学软件学院2019级学生，喜欢记录一些自己像记录的东西和故事。热爱运动，喜欢乒乓球🏓、长跑🏃‍、健身🏋️‍、游泳🏊。热爱记录美食，啥都爱吃。对闭眼唱情歌上瘾。第三针新冠疫苗已打。家有鹦鹉，偶尔中二，偶尔网抑，永远阳光。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">javascript ——this指向问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">对象中的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E4%B8%AD%E7%9A%84this"><span class="toc-number">1.2.</span> <span class="toc-text">事件绑定中的this</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this"><span class="toc-number">1.3.</span> <span class="toc-text">构造函数中的this</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#window%E5%AE%9A%E6%97%B6%E5%99%A8%E4%B8%AD%E7%9A%84this"><span class="toc-number">1.4.</span> <span class="toc-text">window定时器中的this</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call-apply-%E4%B8%AD%E7%9A%84this"><span class="toc-number">1.5.</span> <span class="toc-text">call(),apply()中的this</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/gohomeproject/" title="归宿项目复盘体会--技术回顾"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/biglogo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="归宿项目复盘体会--技术回顾"/></a><div class="content"><a class="title" href="/2022/04/07/gohomeproject/" title="归宿项目复盘体会--技术回顾">归宿项目复盘体会--技术回顾</a><time datetime="2022-04-07T03:20:25.000Z" title="发表于 2022-04-07 11:20:25">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-this/" title="javascript学习笔记--this指向问题"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50b203b6557b9563b5b173bcc19c1709.png&amp;refer=http%3A%2F%2Fimg-blog.csdnimg.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893527&amp;t=f3a7f3fcf3594d8003540210aa01226c" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript学习笔记--this指向问题"/></a><div class="content"><a class="title" href="/2022/04/07/js-this/" title="javascript学习笔记--this指向问题">javascript学习笔记--this指向问题</a><time datetime="2022-04-07T03:17:41.000Z" title="发表于 2022-04-07 11:17:41">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/debounc/" title="javascript--防抖与节流"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fqqpublic.qpic.cn%2Fqq_public%2F0%2F0-3103668252-AA9D34452424D52531C7C43B51D247B5%2F0%3Ffmt%3Djpg%26size%3D40%26h%3D383%26w%3D900%26ppv%3D1.jpg&amp;refer=http%3A%2F%2Fqqpublic.qpic.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893196&amp;t=d3afacc51b3f752ba61de0c55e8379fc" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--防抖与节流"/></a><div class="content"><a class="title" href="/2022/04/07/debounc/" title="javascript--防抖与节流">javascript--防抖与节流</a><time datetime="2022-04-07T03:11:37.000Z" title="发表于 2022-04-07 11:11:37">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-curring/" title="javascript--柯里化"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-ed9c5afe7c5276b0ee93f52b58d1d851_1200x500.jpg&amp;refer=http%3A%2F%2Fpic1.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893839&amp;t=02ae8fa9d105074f70e5f440071f4d8f" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--柯里化"/></a><div class="content"><a class="title" href="/2022/04/07/js-curring/" title="javascript--柯里化">javascript--柯里化</a><time datetime="2022-04-07T03:08:12.000Z" title="发表于 2022-04-07 11:08:12">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-function/" title="javascript--函数进阶总结"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/js.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--函数进阶总结"/></a><div class="content"><a class="title" href="/2022/04/07/js-function/" title="javascript--函数进阶总结">javascript--函数进阶总结</a><time datetime="2022-04-07T03:03:58.000Z" title="发表于 2022-04-07 11:03:58">2022-04-07</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img2.baidu.com/it/u=4228297245,3763622330&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=PNG?w=889&amp;h=500')"><div id="footer-wrap"><div class="copyright">&copy;2022 By Joe</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到Joe的个人博客！<br><a target="_blank" rel="noopener" href="https://beian.aliyun.com/?spm=a2cmq.17629970.0.0.f0d079fehkNnwX"><img class="icp-icon" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%9B%BD%E5%BE%BD1024.png"><span>蜀ICP备2022004251号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'fb5d3e29fb620a53ccb4',
+      clientSecret: '10e8e9a817b2577caba38110f25c3bdb7d2eae73',
+      repo: 'redifinition.github.io',
+      owner: 'redifinition',
+      admin: ['redifinition'],
+      id: '95f2cbc4cd4dbba81df49d079b07cd94',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script async src="/js/weather.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script>((window.gitter = {}).chat = {}).options = {
+  disableDefaultChat: true,
+};
+document.addEventListener('gitter-sidecar-ready', (e) => {
+  const GitterChat = e.detail.Chat
+  let chat
+
+  function initGitter () {
+    chat = new GitterChat({
+      room: 'JokerJoeRoom/community',
+      activationElement: '#chat_btn'
+    });
+  }
+
+  initGitter()
+
+  if (false) {
+    document.addEventListener('pjax:complete', () => {
+      chat.destroy()
+      initGitter()
+    })
+  }
+
+})</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="async" defer="defer"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"superSample":2,"position":"left","width":150,"height":300,"hOffset":20,"vOffset":-90},"mobile":{"show":true,"scale":1},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

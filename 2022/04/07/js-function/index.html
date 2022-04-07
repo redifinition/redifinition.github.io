@@ -1,0 +1,427 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>javascript--函数进阶总结 | Joe's five-dimensional space</title><meta name="keywords" content="javascript"><meta name="author" content="Joe"><meta name="copyright" content="Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Javascript学习笔记 — 函数进阶内容 递归和堆栈 递归 使用执行上下文堆栈存储递归的上下文 递归深度等于堆栈中上下文的最大数量。 应用：Json的递归遍历 对于一个有 N个子部门的 对象 —— 我们可以通过 N层递归调用来求每一个子部门的薪资，然后将它们合并起来。示例代码： let company &#x3D; &amp;#123; &#x2F;&#x2F; 是同一个对象，简洁起见被压缩了  sales: [&amp;#123;na">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript--函数进阶总结">
+<meta property="og:url" content="https://qiaoliang.website/2022/04/07/js-function/index.html">
+<meta property="og:site_name" content="Joe&#39;s five-dimensional space">
+<meta property="og:description" content="Javascript学习笔记 — 函数进阶内容 递归和堆栈 递归 使用执行上下文堆栈存储递归的上下文 递归深度等于堆栈中上下文的最大数量。 应用：Json的递归遍历 对于一个有 N个子部门的 对象 —— 我们可以通过 N层递归调用来求每一个子部门的薪资，然后将它们合并起来。示例代码： let company &#x3D; &amp;#123; &#x2F;&#x2F; 是同一个对象，简洁起见被压缩了  sales: [&amp;#123;na">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/js.png">
+<meta property="article:published_time" content="2022-04-07T03:03:58.000Z">
+<meta property="article:modified_time" content="2022-04-07T03:08:03.913Z">
+<meta property="article:author" content="Joe">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/js.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://qiaoliang.website/2022/04/07/js-function/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'javascript--函数进阶总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-07 11:08:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/cursor.css"><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-k7g7yq_2560x1080.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Joe's five-dimensional space</a></span><div id="he-plugin-simple"></div><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">javascript--函数进阶总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-07T03:03:58.000Z" title="发表于 2022-04-07 11:03:58">2022-04-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-07T03:08:03.913Z" title="更新于 2022-04-07 11:08:03">2022-04-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">学习总结</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="javascript--函数进阶总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>Javascript学习笔记 — 函数进阶内容</h1>
+<h1>递归和堆栈</h1>
+<h2 id="递归">递归</h2>
+<p>使用执行上下文堆栈存储递归的上下文</p>
+<p>递归深度等于堆栈中上下文的最大数量。</p>
+<p><strong>应用：Json的递归遍历</strong></p>
+<p>对于一个有 <code>N</code>个子部门的 <strong>对象</strong> —— 我们可以通过 <code>N</code>层递归调用来求每一个子部门的薪资，然后将它们合并起来。示例代码：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> company = &#123; <span class="comment">// 是同一个对象，简洁起见被压缩了</span></span><br><span class="line">  <span class="attr">sales</span>: [&#123;<span class="attr">name</span>: <span class="string">&#x27;John&#x27;</span>, <span class="attr">salary</span>: <span class="number">1000</span>&#125;, &#123;<span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>, <span class="attr">salary</span>: <span class="number">1600</span> &#125;],</span><br><span class="line">  <span class="attr">development</span>: &#123;</span><br><span class="line">    <span class="attr">sites</span>: [&#123;<span class="attr">name</span>: <span class="string">&#x27;Peter&#x27;</span>, <span class="attr">salary</span>: <span class="number">2000</span>&#125;, &#123;<span class="attr">name</span>: <span class="string">&#x27;Alex&#x27;</span>, <span class="attr">salary</span>: <span class="number">1800</span> &#125;],</span><br><span class="line">    <span class="attr">internals</span>: [&#123;<span class="attr">name</span>: <span class="string">&#x27;Jack&#x27;</span>, <span class="attr">salary</span>: <span class="number">1300</span>&#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用来完成任务的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sumSalaries</span>(<span class="params">department</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(department)) &#123; <span class="comment">// 情况（1）</span></span><br><span class="line">    <span class="keyword">return</span> department.reduce(<span class="function">(<span class="params">prev, current</span>) =&gt;</span> prev + current.salary, <span class="number">0</span>); <span class="comment">// 求数组的和</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123; <span class="comment">// 情况（2）</span></span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> subdep <span class="keyword">of</span> <span class="built_in">Object</span>.values(department)) &#123;</span><br><span class="line">      sum += sumSalaries(subdep); <span class="comment">// 递归调用所有子部门，对结果求和</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(sumSalaries(company)); <span class="comment">// 7700</span></span><br></pre></td></tr></table></figure>
+<h1>Rest 参数与Spread语法</h1>
+<p>Rest 参数可以通过使用三个点 <code>...</code>并在后面跟着包含剩余参数的数组名称，来将它们包含在函数定义中。这些点的字面意思是“将剩余参数收集到一个数组中”。</p>
+<h2 id="arguments变量">arguments变量</h2>
+<p>有一个名为 <code>arguments</code>的特殊的类数组对象，该对象按参数索引包含所有参数。如果我们在箭头函数中访问 <code>arguments</code>，访问到的 <code>arguments</code>并不属于箭头函数，而是属于箭头函数外部的“普通”函数。</p>
+<h2 id="Spread-语法">Spread 语法</h2>
+<p>当函数需要将数组内的元素依次作为参数传入时，可以使用<code>...</code> 将数组展开到参数列表中。除此以外还可用其合并数组</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">8</span>, <span class="number">9</span>, <span class="number">15</span>];</span><br><span class="line"><span class="keyword">let</span> merged = [<span class="number">0</span>, ...arr, <span class="number">2</span>, ...arr2];</span><br></pre></td></tr></table></figure>
+<p>除此之外，还可用<code>[...str]</code>将字符串转化为字符数组</p>
+<p>当我们在代码中看到 <code>&quot;...&quot;</code> 时，它要么是 rest 参数，要么就是 spread 语法。</p>
+<p>有一个简单的方法可以区分它们：</p>
+<ul>
+<li>若 <code>...</code> 出现在函数参数列表的最后，那么它就是 rest 参数，它会把参数列表中剩余的参数收集到一个数组中。</li>
+<li>若 <code>...</code> 出现在函数调用或类似的表达式中，那它就是 spread 语法，它会把一个数组展开为列表。</li>
+</ul>
+<p><strong>使用场景：</strong></p>
+<ul>
+<li>Rest 参数用于创建可接受任意数量参数的函数。</li>
+<li>Spread 语法用于将数组传递给通常需要含有许多参数的列表的函数。</li>
+</ul>
+<h1>变量作用域，闭包</h1>
+<h2 id="词法环境">词法环境</h2>
+<p>在 JavaScript 中，每个运行的函数，代码块 <code>&#123;...&#125;</code> 以及整个脚本，都有一个被称为 <strong>词法环境（Lexical Environment）</strong> 的内部（隐藏）的关联对象。</p>
+<p>词法环境对象由两部分组成：</p>
+<ol>
+<li><strong>环境记录（Environment Record）</strong> —— 一个存储所有局部变量作为其属性（包括一些其他信息，例如 <code>this</code> 的值）的对象。</li>
+<li>对 <strong>外部词法环境</strong> 的引用，与外部代码相关联。</li>
+</ol>
+<p><img src="Javascript%20e9513/Untitled.png" alt="Untitled"></p>
+<p>当代码执行时，全局词法环境会发生如下变化：</p>
+<p><img src="Javascript%20e9513/Untitled%201.png" alt="Untitled"></p>
+<p>如上，这就是所谓的与整个脚本相关联的 <strong>全局</strong>词法环境。</p>
+<p>而一个函数其实也是一个值，和变量一样，但<strong>不同之处在于函数声明的初始化会被立即完成</strong>。这就是为什么我们可以在（函数声明）的定义之前调用函数声明</p>
+<p>在一个函数运行时，在调用刚开始时，会自动创建一个新的词法环境以存储这个调用的局部变量和参数。</p>
+<p><img src="Javascript%20e9513/Untitled%202.png" alt="Untitled"></p>
+<p><strong>当代码要访问一个变量时 —— 首先会搜索内部词法环境，然后搜索外部环境，然后搜索更外部的环境，以此类推，直到全局词法环境。</strong></p>
+<p>如果在任何地方都找不到这个变量，那么在严格模式下就会报错（在非严格模式下，为了向下兼容，给未定义的变量赋值会创建一个全局变量）。</p>
+<p>回到以下例子：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> count++;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> counter = makeCounter();</span><br></pre></td></tr></table></figure>
+<p><img src="Javascript%20e9513/Untitled%203.png" alt="Untitled"></p>
+<p><img src="Javascript%20e9513/Untitled%204.png" alt="Untitled"></p>
+<p>所有的函数在诞生时（还没调用）都会创建它们的词法环境，所有函数都有名为 <code>[[Environment]]</code>的隐藏属性，该属性保存了对创建该函数的词法环境的引用。当调用counter()时，会为该调用创建一个新的词法环境，并且其外部词法环境引用获取于 <code>counter.[[Environment]]</code>：</p>
+<p><img src="Javascript%20e9513/Untitled%205.png" alt="Untitled"></p>
+<p><strong>并且在变量的词法环境中更新变量</strong></p>
+<h2 id="闭包的定义">闭包的定义</h2>
+<p>闭包是指内部函数总是可以访问其所在的外部函数中声明的变量和参数，即使在其外部函数被返回（寿命终结）了之后。在 JavaScript 中，所有函数都是天生闭包的（只有一个例外，将在 <a target="_blank" rel="noopener" href="https://zh.javascript.info/new-function">“new Function” 语法</a>中讲到）。</p>
+<h2 id="垃圾回收">垃圾回收</h2>
+<p>通常，函数调用完成后，会将词法环境和其中的所有变量从内存中删除。因为现在没有任何对它们的引用了。与 JavaScript 中的任何其他对象一样，词法环境仅在可达时才会被保留在内存中。</p>
+<p>但是，如果有一个嵌套的函数在函数结束后仍可达，则它将具有引用词法环境的 <code>[[Environment]]</code> 属性。</p>
+<p><strong>但在实际开发中会对其进行优化，JavaScript 引擎会试图优化它。它们会分析变量的使用情况，如果从代码中可以明显看出有未使用的外部变量，那么就会将其删除。</strong></p>
+<h1>有关<code>var</code></h1>
+<p>var具有以下几个特点</p>
+<ul>
+<li>
+<p>var没有块级作用域</p>
+</li>
+<li>
+<p>var 允许重新声明</p>
+</li>
+<li>
+<p>var 声明的变量看可以在声明语句前被使用，包括代码块也会被忽略，这就是var的<strong>变量提升(请注意，声明会被提升，但赋值不会)</strong></p>
+<p>例子：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">20</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出应该是undefined和20,因为<code>var a</code>声明被提升到了函数顶部，但是赋值没有，代码等价于：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a;</span><br><span class="line">  <span class="built_in">console</span>.log(a);</span><br><span class="line">	a = <span class="number">20</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>因此，var和let/const有两个主要区别：</p>
+<p><code>var</code> 与 <code>let/const</code> 有两个主要的区别：</p>
+<ol>
+<li><code>var</code> 声明的变量没有块级作用域，它们仅在当前函数内可见，或者全局可见（如果变量是在函数外声明的）。</li>
+<li><code>var</code> 变量声明在函数开头就会被处理（脚本启动对应全局变量）。</li>
+</ol>
+<h1>全局对象</h1>
+<p>全局对象提供可在任何地方使用的变量和函数。默认情况下，这些全局变量内建于语言或环境中。如果一个值非常重要，以至于你想使它在全局范围内可用，那么可以直接将其作为属性写入：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 将当前用户信息全局化，以允许所有脚本访问它</span></span><br><span class="line"><span class="built_in">window</span>.currentUser = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;John&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代码中的另一个位置</span></span><br><span class="line">alert(currentUser.name);  <span class="comment">// John</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者，如果我们有一个名为 &quot;currentUser&quot; 的局部变量</span></span><br><span class="line"><span class="comment">// 从 window 显式地获取它（这是安全的！）</span></span><br><span class="line">alert(<span class="built_in">window</span>.currentUser.name); <span class="comment">// John</span></span><br></pre></td></tr></table></figure>
+<p>全局对象有一个通用名称 <code>globalThis</code>。</p>
+<h1>函数对象，NFE</h1>
+<p>在 JavaScript 中，函数就是对象。</p>
+<h2 id="属性”name“">属性”name“</h2>
+<p>一个函数的名字可以通过”name“来访问，并且能通过上下文推测函数的名字</p>
+<h2 id="属性”length“">属性”length“</h2>
+<p>内建属性length会返回函数入参的个数。注意rest参数不参与计数</p>
+<h2 id="自定义属性">自定义属性</h2>
+<p>被赋值给函数的属性，比如 <code>sayHi.counter = 0</code>，<strong>不会</strong> 在函数内定义一个局部变量 <code>counter</code>。换句话说，属性 <code>counter</code>和变量 <code>let counter</code>是毫不相关的两个东西。</p>
+<p>自定义属性有时会用来替代闭包。那么<strong>孰优孰劣？</strong></p>
+<p>两者最大的不同就是如果 <code>count</code>的值位于外层（函数）变量中，那么外部的代码无法访问到它，只有嵌套的函数可以修改它。而如果它是绑定到函数的，那么就很容易。所以说选择哪种实现方式取决于我们的需求是什么。</p>
+<h2 id="命名函数表达式NFE">命名函数表达式NFE</h2>
+<p>命名函数表达式（NFE，Named Function Expression），指带有名字的函数表达式的术语。</p>
+<p>例如，让我们写一个普通的函数表达式：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sayHi = <span class="function"><span class="keyword">function</span>(<span class="params">who</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">`Hello, <span class="subst">$&#123;who&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>然后给它加一个名字：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sayHi = <span class="function"><span class="keyword">function</span> *<span class="title">func</span>*(<span class="params">who</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">`Hello, <span class="subst">$&#123;who&#125;</span>`</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中func就使得该表达式变为了函数命名表达式NFE。func有两个特点：</p>
+<ol>
+<li>它允许函数在内部引用自己。这在递归中很常用</li>
+<li>它在函数外是不可见的。例如若在函数外将sayHi赋值给另外一个变量，则func本身不会受到影响</li>
+</ol>
+<h2 id="示例">示例</h2>
+<p><strong>为counter 添加set  和 decrease方法</strong></p>
+<p>修改 <code>makeCounter()</code> 代码，使得 counter 可以进行减一和设置值的操作：</p>
+<ul>
+<li><code>counter()</code> 应该返回下一个数字（与之前的逻辑相同）。</li>
+<li><code>counter.set(value)</code> 应该将 <code>count</code> 设置为 <code>value</code>。</li>
+<li><code>counter.decrease()</code> 应该把 <code>count</code> 减 1。</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">// ... your code ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">let</span> counter = makeCounter();</span><br><span class="line">  </span><br><span class="line">  alert( counter() ); <span class="comment">// 0</span></span><br><span class="line">  alert( counter() ); <span class="comment">// 1</span></span><br><span class="line">  </span><br><span class="line">  counter.set(<span class="number">10</span>); <span class="comment">// set the new count</span></span><br><span class="line">  </span><br><span class="line">  alert( counter() ); <span class="comment">// 10</span></span><br><span class="line">  </span><br><span class="line">  counter.decrease(); <span class="comment">// decrease the count by 1</span></span><br><span class="line">  </span><br><span class="line">  alert( counter() ); <span class="comment">// 10 (instead of 11)</span></span><br></pre></td></tr></table></figure>
+<p>该解决方案在局部变量中使用 <code>count</code>，而进行加法操作的方法是直接写在 <code>counter</code>中的。它们共享同一个外部词法环境，并且可以访问当前的 <code>count</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> count++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  counter.set = <span class="function"><span class="params">value</span> =&gt;</span> count = value;</span><br><span class="line"></span><br><span class="line">  counter.decrease = <span class="function">() =&gt;</span> count--;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> counter;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> counter = makeCounter();</span><br><span class="line">  </span><br><span class="line">  alert( counter() ); <span class="comment">// 0</span></span><br><span class="line">  alert( counter() ); <span class="comment">// 1</span></span><br><span class="line">  </span><br><span class="line">  counter.set(<span class="number">10</span>); <span class="comment">// set the new count</span></span><br><span class="line">  </span><br><span class="line">  alert( counter() ); <span class="comment">// 10</span></span><br><span class="line">  </span><br><span class="line">  counter.decrease(); <span class="comment">// decrease the count by 1</span></span><br><span class="line">  </span><br><span class="line">  alert( counter() ); <span class="comment">// 10 (instead of 11)</span></span><br></pre></td></tr></table></figure>
+<p><strong>写一个函数 <code>sum</code>，它有这样的功能：</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line">sum(<span class="number">1</span>)(<span class="number">2</span>) == <span class="number">3</span>; <span class="comment">// 1 + 2</span></span><br><span class="line">sum(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>) == <span class="number">6</span>; <span class="comment">// 1 + 2 + 3</span></span><br><span class="line">sum(<span class="number">5</span>)(-<span class="number">1</span>)(<span class="number">2</span>) == <span class="number">6</span></span><br><span class="line">sum(<span class="number">6</span>)(-<span class="number">1</span>)(-<span class="number">2</span>)(-<span class="number">3</span>) == <span class="number">0</span></span><br><span class="line">sum(<span class="number">0</span>)(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)(<span class="number">4</span>)(<span class="number">5</span>) == <span class="number">15</span></span><br></pre></td></tr></table></figure>
+<p>注意体会本题与函数柯里化的区别。</p>
+<p><strong>solution:</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> currentSum = a;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">b</span>) </span>&#123;</span><br><span class="line">    currentSum += b;</span><br><span class="line">    <span class="keyword">return</span> f;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  f.toString = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> currentSum;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">	f.valueOf = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> currentSum;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert( sum(<span class="number">1</span>)(<span class="number">2</span>) ); <span class="comment">// 3</span></span><br><span class="line">alert( sum(<span class="number">5</span>)(-<span class="number">1</span>)(<span class="number">2</span>) ); <span class="comment">// 6</span></span><br><span class="line">alert( sum(<span class="number">6</span>)(-<span class="number">1</span>)(-<span class="number">2</span>)(-<span class="number">3</span>) ); <span class="comment">// 0</span></span><br><span class="line">alert( sum(<span class="number">0</span>)(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)(<span class="number">4</span>)(<span class="number">5</span>) ); <span class="comment">// 15</span></span><br></pre></td></tr></table></figure>
+<p>请注意 <code>sum</code> 函数只工作一次，它返回了函数 <code>f</code>。</p>
+<p>然后，接下来的每一次子调用，<code>f</code> 都会把自己的参数加到和 <code>currentSum</code> 上，然后 <code>f</code> 自身。</p>
+<p><strong>在 <code>f</code> 的最后一行没有递归。</strong></p>
+<p>递归是这样子的：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">b</span>) </span>&#123;</span><br><span class="line">  currentSum += b;</span><br><span class="line">  <span class="keyword">return</span> f(); <span class="comment">// &lt;-- 递归调用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在我们的例子中，只是返回了函数，并没有调用它：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">b</span>) </span>&#123;</span><br><span class="line">  currentSum += b;</span><br><span class="line">  <span class="keyword">return</span> f; <span class="comment">// &lt;-- 没有调用自己，只是返回了自己</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个 <code>f</code> 会被用于下一次调用，然后再次返回自己，按照需要重复。然后，当它被用做数字或字符串时 —— <code>toString</code> 返回 <code>currentSum</code>。我们也可以使用 <code>Symbol.toPrimitive</code> 或者 <code>valueOf</code> 来实现转换。</p>
+<h1>new Function语法</h1>
+<h2 id="语法-2">语法</h2>
+<p>创建函数。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> func = <span class="keyword">new</span> <span class="built_in">Function</span> ([arg1, arg2, ...argN], functionBody);</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sum = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;return a+b&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="创建函数应用场景">创建函数应用场景</h2>
+<p>比如在复杂的Web应用程序中，我们需要从服务器获取代码或动态地从模板编译函数时才会使用。</p>
+<p>与一般函数不同的是，函数均是闭包，即使用一个特殊的属性<code>[[Environment]]</code> 来记录函数自身创建时的环境的函数，指向了函数创建时的词法环境。但创建函数不同，其[[Environment]]属性不指向当前的词法环境，而指向全局环境。<strong>因此，此类函数无法访问外部变量，而只能访问全局变量</strong></p>
+<p><strong>这样做又有什么好处？</strong></p>
+<p>javascript在发布到生产环境之前会使用压缩程序进行压缩，将局部变量命名为较短的变量，在这种情况下，如果使 <code>new Function</code>可以访问自身函数以外的变量，它也很有可能无法找到重命名的 <code>userName</code>，这是因为新函数的创建发生在代码压缩以后，变量名已经被替换了。</p>
+<h1>调度：<code>setTimeout</code>和<code>setInterval</code></h1>
+<ul>
+<li><code>setTimeout</code> 允许我们将函数推迟到一段时间间隔之后再执行。</li>
+<li><code>setInterval</code> 允许我们重复运行一个函数，从一段时间间隔之后开始运行，之后以该时间间隔连续重复运行该函数。</li>
+</ul>
+<h2 id="setTimeout"><code>setTimeout</code></h2>
+<p>语法：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> timerId = <span class="built_in">setTimeout</span>(func|code, [delay], [arg1], [arg2], ...)</span><br></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<p>**<code>func|code</code>**想要执行的函数或代码字符串。</p>
+<p>**<code>delay</code><strong>执行前的延时，以毫秒为单位（1000 毫秒 = 1 秒），默认值是 0；</strong><code>arg1</code>，<code>arg2</code>…**要传入被执行函数（或代码字符串）的参数列表（IE9 以下不支持）</p>
+<p>如果第一个参数位传入的是字符串，JavaScript 会自动为其创建一个函数。</p>
+<p>所以这么写也是可以的：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="string">&quot;alert(&#x27;Hello&#x27;)&quot;</span>, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p>但是，不建议使用字符串，我们可以使用箭头函数代替它们，如下所示：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> alert(<span class="string">&#x27;Hello&#x27;</span>), <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p>注意，第一个参数不能加括号！这是因为<code>setTimeout</code>期望得到一个对函数的引用，加了括号就表示执行函数了。</p>
+<h3 id="调度">调度</h3>
+<p><code>setTimeout</code>在调用时会返回一个“定时器标识符（timer identifier）”，我们可以使用它来取消执行。</p>
+<p>取消调度的语法：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> timerId = <span class="built_in">setTimeout</span>(...);</span><br><span class="line"><span class="built_in">clearTimeout</span>(timerId);</span><br></pre></td></tr></table></figure>
+<p>此时因为紧接着取消了这次调度，所以什么也没发生</p>
+<h2 id="setInterval"><code>setInterval</code></h2>
+<p>语法和<code>setTimeout</code>的语法相同。但含义是每隔给定的时间周期性地执行。</p>
+<p>想要阻止后续调用，我们需要调用 <code>clearInterval(timerId)</code>。</p>
+<p>下面的例子将每间隔 2 秒就会输出一条消息。5 秒之后，输出停止：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 每 2 秒重复一次</span></span><br><span class="line"><span class="keyword">let</span> timerId = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> alert(<span class="string">&#x27;tick&#x27;</span>), <span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5 秒之后停止</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123; <span class="built_in">clearInterval</span>(timerId); alert(<span class="string">&#x27;stop&#x27;</span>); &#125;, <span class="number">5000</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="嵌套的setTimeout">嵌套的setTimeout</h2>
+<p>周期性调度有两种方式。</p>
+<p>一种是使用 <code>setInterval</code>，另外一种就是嵌套的 <code>setTimeout</code>，就像这样：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** instead of:</span></span><br><span class="line"><span class="comment">let timerId = setInterval(() =&gt; alert(&#x27;tick&#x27;), 2000);</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> timerId = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">tick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">&#x27;tick&#x27;</span>);</span><br><span class="line">  *timerId = <span class="built_in">setTimeout</span>(tick, <span class="number">2000</span>); <span class="comment">// (*)*</span></span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+<p>嵌套的 <code>setTimeout</code>要比 <code>setInterval</code>灵活得多。采用这种方式可以根据当前执行结果来调度下一次调用，因此下一次调用可以与当前这一次不同。<strong>比如我们实现一个服务，每隔一定的时间发送一个数据请求，但如果服务器过载了，就要降低请求频率。</strong></p>
+<p><strong>嵌套的 <code>setTimeout</code> 能够精确地设置两次执行之间的延时，而 <code>setInterval</code> 却不能。</strong></p>
+<p>下面来比较这两个代码片段。第一个使用的是 <code>setInterval</code>：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  func(i++);</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>第二个使用的是嵌套的 <code>setTimeout</code>：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">run</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  func(i++);</span><br><span class="line">  <span class="built_in">setTimeout</span>(run, <span class="number">100</span>);</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+<p>对 <code>setInterval</code> 而言，内部的调度程序会每间隔 100 毫秒执行一次 <code>func(i++)</code>：</p>
+<p><img src="Javascript%20e9513/Untitled%206.png" alt="Untitled"></p>
+<p><strong>使用 <code>setInterval</code> 时，<code>func</code> 函数的实际调用间隔要比代码中设定的时间间隔要短。</strong></p>
+<p>这也是正常的，因为 <code>func</code> 的执行所花费的时间“消耗”了一部分间隔时间。</p>
+<p>也可能出现这种情况，就是 <code>func</code> 的执行所花费的时间比我们预期的时间更长，并且超出了 100 毫秒。</p>
+<p>在这种情况下，JavaScript 引擎会等待 <code>func</code> 执行完成，然后检查调度程序，如果时间到了，则 <strong>立即</strong> 再次执行它。</p>
+<p>极端情况下，如果函数每次执行时间都超过 <code>delay</code> 设置的时间，那么每次调用之间将完全没有停顿。</p>
+<p>这是嵌套的 <code>setTimeout</code> 的示意图：</p>
+<p><img src="Javascript%20e9513/Untitled%207.png" alt="Untitled"></p>
+<p><strong>嵌套的 <code>setTimeout</code> 就能确保延时的固定（这里是 100 毫秒）。</strong></p>
+<p>这是因为下一次调用是在前一次调用完成时再调度的。</p>
+<p><strong>注：对于调度程序内的函数的垃圾回收而言，调度程序内部会为函数创建一个内部引用，因此只要调度程序没有被取消(setInterval)，该函数就会一直存在，不会被GC回收，而若函数为闭包，则若没有取消调度，外部变量也会一直存在，因此当我们不再需要调度函数时，因及时取消它</strong></p>
+<h2 id="简单的计时输出案例">简单的计时输出案例</h2>
+<p>编写一个函数 <code>printNumbers(from, to)</code>，使其每秒输出一个数字，数字从 <code>from</code> 开始，到 <code>to</code> 结束。</p>
+<p>使用以下两种方法来实现。</p>
+<ol>
+<li>使用 <code>setInterval</code>。</li>
+<li>使用嵌套的 <code>setTimeout</code>。</li>
+</ol>
+<p>使用嵌套的 <code>setTimeout</code>：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printNumbers</span>(<span class="params"><span class="keyword">from</span>, to</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> current = <span class="keyword">from</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> <span class="title">go</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(current);</span><br><span class="line">    <span class="keyword">if</span> (current &lt; to) &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(go, <span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    current++;</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用例：</span></span><br><span class="line">printNumbers(<span class="number">5</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p>使用 <code>setInterval</code>：</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printNumbers</span>(<span class="params"><span class="keyword">from</span>, to</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> current = <span class="keyword">from</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> timerId = <span class="built_in">setInterval</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(current);</span><br><span class="line">    <span class="keyword">if</span> (current == to) &#123;</span><br><span class="line">      <span class="built_in">clearInterval</span>(timerId);</span><br><span class="line">    &#125;</span><br><span class="line">    current++;</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用例：</span></span><br><span class="line">printNumbers(<span class="number">5</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<p>注意，以上代码第一次弹窗都是过了1秒后才执行的。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiaoliang.website/2022/04/07/js-function/">https://qiaoliang.website/2022/04/07/js-function/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiaoliang.website" target="_blank">Joe's five-dimensional space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/javascript/">javascript</a></div><div class="post_share"><div class="social-share" data-image="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/js.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/04/07/js-curring/"><img class="prev-cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-ed9c5afe7c5276b0ee93f52b58d1d851_1200x500.jpg&amp;refer=http%3A%2F%2Fpic1.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893839&amp;t=02ae8fa9d105074f70e5f440071f4d8f" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">javascript--柯里化</div></div></a></div><div class="next-post pull-right"><a href="/2022/04/07/git/"><img class="next-cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fupload-images.jianshu.io%2Fupload_images%2F3876828-d96a4194727698aa.jpg&amp;refer=http%3A%2F%2Fupload-images.jianshu.io&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651892511&amp;t=a1ec3df04740502381532898fa3f799b" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">git基本操作指令整理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/04/07/debounc/" title="javascript--防抖与节流"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fqqpublic.qpic.cn%2Fqq_public%2F0%2F0-3103668252-AA9D34452424D52531C7C43B51D247B5%2F0%3Ffmt%3Djpg%26size%3D40%26h%3D383%26w%3D900%26ppv%3D1.jpg&refer=http%3A%2F%2Fqqpublic.qpic.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893196&t=d3afacc51b3f752ba61de0c55e8379fc" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-07</div><div class="title">javascript--防抖与节流</div></div></a></div><div><a href="/2022/03/21/javascript-zhengze/" title="javascript-正则表达式学习总结"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Ffile.elecfans.com%2Fweb1%2FM00%2FAC%2F85%2FpIYBAF3CaR2ANBncAAGdCj_Rec4317.png&refer=http%3A%2F%2Ffile.elecfans.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650465256&t=d4f0cac444843c0a72e643156531bd42" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-21</div><div class="title">javascript-正则表达式学习总结</div></div></a></div><div><a href="/2022/03/26/javascript/" title="javascript基础知识回顾"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic3.zhimg.com%2Fv2-ca60b0a4404d7b76de259a74b7ad60da_1200x500.jpg&refer=http%3A%2F%2Fpic3.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650821891&t=725dfcffdd376d82d0eb2d14660bd210" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-26</div><div class="title">javascript基础知识回顾</div></div></a></div><div><a href="/2022/04/07/js-curring/" title="javascript--柯里化"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-ed9c5afe7c5276b0ee93f52b58d1d851_1200x500.jpg&refer=http%3A%2F%2Fpic1.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893839&t=02ae8fa9d105074f70e5f440071f4d8f" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-07</div><div class="title">javascript--柯里化</div></div></a></div><div><a href="/2022/04/07/js-this/" title="javascript学习笔记--this指向问题"><img class="cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50b203b6557b9563b5b173bcc19c1709.png&refer=http%3A%2F%2Fimg-blog.csdnimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1651893527&t=f3a7f3fcf3594d8003540210aa01226c" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-07</div><div class="title">javascript学习笔记--this指向问题</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Joe</div><div class="author-info__description">同济大学软件学院2019级梁乔‍</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/redifinition" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:19921305202@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成都人也。同济大学软件学院2019级学生，喜欢记录一些自己像记录的东西和故事。热爱运动，喜欢乒乓球🏓、长跑🏃‍、健身🏋️‍、游泳🏊。热爱记录美食，啥都爱吃。对闭眼唱情歌上瘾。第三针新冠疫苗已打。家有鹦鹉，偶尔中二，偶尔网抑，永远阳光。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Javascript学习笔记 — 函数进阶内容</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">递归和堆栈</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-number">2.1.</span> <span class="toc-text">递归</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">Rest 参数与Spread语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#arguments%E5%8F%98%E9%87%8F"><span class="toc-number">3.1.</span> <span class="toc-text">arguments变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spread-%E8%AF%AD%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">Spread 语法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">变量作用域，闭包</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%8D%E6%B3%95%E7%8E%AF%E5%A2%83"><span class="toc-number">4.1.</span> <span class="toc-text">词法环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">4.2.</span> <span class="toc-text">闭包的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">4.3.</span> <span class="toc-text">垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">有关var</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">全局对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">函数对象，NFE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E2%80%9Dname%E2%80%9C"><span class="toc-number">7.1.</span> <span class="toc-text">属性”name“</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E2%80%9Dlength%E2%80%9C"><span class="toc-number">7.2.</span> <span class="toc-text">属性”length“</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7"><span class="toc-number">7.3.</span> <span class="toc-text">自定义属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E5%87%BD%E6%95%B0%E8%A1%A8%E8%BE%BE%E5%BC%8FNFE"><span class="toc-number">7.4.</span> <span class="toc-text">命名函数表达式NFE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">7.5.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">8.</span> <span class="toc-text">new Function语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95-2"><span class="toc-number">8.1.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">8.2.</span> <span class="toc-text">创建函数应用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">9.</span> <span class="toc-text">调度：setTimeout和setInterval</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#setTimeout"><span class="toc-number">9.1.</span> <span class="toc-text">setTimeout</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6"><span class="toc-number">9.1.1.</span> <span class="toc-text">调度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setInterval"><span class="toc-number">9.2.</span> <span class="toc-text">setInterval</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97%E7%9A%84setTimeout"><span class="toc-number">9.3.</span> <span class="toc-text">嵌套的setTimeout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E6%97%B6%E8%BE%93%E5%87%BA%E6%A1%88%E4%BE%8B"><span class="toc-number">9.4.</span> <span class="toc-text">简单的计时输出案例</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/gohomeproject/" title="归宿项目复盘体会--技术回顾"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/biglogo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="归宿项目复盘体会--技术回顾"/></a><div class="content"><a class="title" href="/2022/04/07/gohomeproject/" title="归宿项目复盘体会--技术回顾">归宿项目复盘体会--技术回顾</a><time datetime="2022-04-07T03:20:25.000Z" title="发表于 2022-04-07 11:20:25">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-this/" title="javascript学习笔记--this指向问题"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50b203b6557b9563b5b173bcc19c1709.png&amp;refer=http%3A%2F%2Fimg-blog.csdnimg.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893527&amp;t=f3a7f3fcf3594d8003540210aa01226c" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript学习笔记--this指向问题"/></a><div class="content"><a class="title" href="/2022/04/07/js-this/" title="javascript学习笔记--this指向问题">javascript学习笔记--this指向问题</a><time datetime="2022-04-07T03:17:41.000Z" title="发表于 2022-04-07 11:17:41">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/debounc/" title="javascript--防抖与节流"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fqqpublic.qpic.cn%2Fqq_public%2F0%2F0-3103668252-AA9D34452424D52531C7C43B51D247B5%2F0%3Ffmt%3Djpg%26size%3D40%26h%3D383%26w%3D900%26ppv%3D1.jpg&amp;refer=http%3A%2F%2Fqqpublic.qpic.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893196&amp;t=d3afacc51b3f752ba61de0c55e8379fc" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--防抖与节流"/></a><div class="content"><a class="title" href="/2022/04/07/debounc/" title="javascript--防抖与节流">javascript--防抖与节流</a><time datetime="2022-04-07T03:11:37.000Z" title="发表于 2022-04-07 11:11:37">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-curring/" title="javascript--柯里化"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-ed9c5afe7c5276b0ee93f52b58d1d851_1200x500.jpg&amp;refer=http%3A%2F%2Fpic1.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893839&amp;t=02ae8fa9d105074f70e5f440071f4d8f" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--柯里化"/></a><div class="content"><a class="title" href="/2022/04/07/js-curring/" title="javascript--柯里化">javascript--柯里化</a><time datetime="2022-04-07T03:08:12.000Z" title="发表于 2022-04-07 11:08:12">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-function/" title="javascript--函数进阶总结"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/js.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--函数进阶总结"/></a><div class="content"><a class="title" href="/2022/04/07/js-function/" title="javascript--函数进阶总结">javascript--函数进阶总结</a><time datetime="2022-04-07T03:03:58.000Z" title="发表于 2022-04-07 11:03:58">2022-04-07</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-k7g7yq_2560x1080.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 By Joe</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到Joe的个人博客！<br><a target="_blank" rel="noopener" href="https://beian.aliyun.com/?spm=a2cmq.17629970.0.0.f0d079fehkNnwX"><img class="icp-icon" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%9B%BD%E5%BE%BD1024.png"><span>蜀ICP备2022004251号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'fb5d3e29fb620a53ccb4',
+      clientSecret: '10e8e9a817b2577caba38110f25c3bdb7d2eae73',
+      repo: 'redifinition.github.io',
+      owner: 'redifinition',
+      admin: ['redifinition'],
+      id: 'eab8569f9c33c250db4e2d0b59947d17',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script async src="/js/weather.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script>((window.gitter = {}).chat = {}).options = {
+  disableDefaultChat: true,
+};
+document.addEventListener('gitter-sidecar-ready', (e) => {
+  const GitterChat = e.detail.Chat
+  let chat
+
+  function initGitter () {
+    chat = new GitterChat({
+      room: 'JokerJoeRoom/community',
+      activationElement: '#chat_btn'
+    });
+  }
+
+  initGitter()
+
+  if (false) {
+    document.addEventListener('pjax:complete', () => {
+      chat.destroy()
+      initGitter()
+    })
+  }
+
+})</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="async" defer="defer"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"superSample":2,"position":"left","width":150,"height":300,"hOffset":20,"vOffset":-90},"mobile":{"show":true,"scale":1},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>

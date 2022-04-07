@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>归宿项目复盘体会--技术回顾 | Joe's five-dimensional space</title><meta name="keywords" content="项目复盘"><meta name="author" content="Joe"><meta name="copyright" content="Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="归宿项目复盘体会 登录鉴权部分 总体思想： 前端同域 + 后端同redis 登录鉴权-单点登录 export function customerLogin(data) &amp;#123;&#x2F;*顾客登录    *&#x2F;		axios.defaults.withCredentials &#x3D; true; &#x2F;&#x2F;1    let param &#x3D; new URLSearchParams(data)    console.l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="归宿项目复盘体会--技术回顾">
+<meta property="og:url" content="https://qiaoliang.website/2022/04/07/gohomeproject/index.html">
+<meta property="og:site_name" content="Joe&#39;s five-dimensional space">
+<meta property="og:description" content="归宿项目复盘体会 登录鉴权部分 总体思想： 前端同域 + 后端同redis 登录鉴权-单点登录 export function customerLogin(data) &amp;#123;&#x2F;*顾客登录    *&#x2F;		axios.defaults.withCredentials &#x3D; true; &#x2F;&#x2F;1    let param &#x3D; new URLSearchParams(data)    console.l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/biglogo.png">
+<meta property="article:published_time" content="2022-04-07T03:20:25.000Z">
+<meta property="article:modified_time" content="2022-04-07T03:22:05.701Z">
+<meta property="article:author" content="Joe">
+<meta property="article:tag" content="项目复盘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/biglogo.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://qiaoliang.website/2022/04/07/gohomeproject/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '归宿项目复盘体会--技术回顾',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-07 11:22:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/cursor.css"><meta name="generator" content="Hexo 6.0.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-5787d5_2560x1080.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Joe's five-dimensional space</a></span><div id="he-plugin-simple"></div><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 探索</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">归宿项目复盘体会--技术回顾</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-07T03:20:25.000Z" title="发表于 2022-04-07 11:20:25">2022-04-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-07T03:22:05.701Z" title="更新于 2022-04-07 11:22:05">2022-04-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/">技术博客</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="归宿项目复盘体会--技术回顾"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1>归宿项目复盘体会</h1>
+<h1>登录鉴权部分</h1>
+<p>总体思想： <strong>前端同域 + 后端同redis</strong></p>
+<h2 id="登录鉴权-单点登录">登录鉴权-单点登录</h2>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">customerLogin</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">顾客登录</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">		axios.defaults.withCredentials = <span class="literal">true</span>; <span class="comment">//1</span></span><br><span class="line">    <span class="keyword">let</span> param = <span class="keyword">new</span> URLSearchParams(data)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;paramss&#x27;</span>, param);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;data&#x27;</span>, data);</span><br><span class="line">    <span class="keyword">var</span> config = &#123;</span><br><span class="line">        <span class="attr">method</span>: <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>:getDomainUrl() + <span class="string">&#x27;/sso/doLogin&#x27;</span>,</span><br><span class="line">        <span class="attr">params</span>: data,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> axios(config)</span><br><span class="line"><span class="comment">// return request(&#123;</span></span><br><span class="line">    <span class="comment">//     url: &#x27;/sso/doLogin&#x27;,</span></span><br><span class="line">    <span class="comment">//     method: &#x27;GET&#x27;,</span></span><br><span class="line">    <span class="comment">//     params: param</span></span><br><span class="line">    <span class="comment">// &#125;)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>axio.defaults.withCredentials = true;表示允许跨域请求带上cookie，这是浏览器的同源策略导致的问题：不允许JS访问跨域的Cookie。为什么要用cookie来存token呢？因为http是无状态的协议，每次请求都是重新建立链接的过程，因此需要在发送请求的时候额外携带与登录状态有关的信息，这个额外携带的信息就是cookie.</p>
+<p>在首页展示是，created里面判断获取本地localStorage来判断登录状态（图为网页的F12 application里的localStorage部分）</p>
+<p><img src="%E5%BD%92%E5%AE%BF%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%9B%98%E4%BD%93%E4%BC%9A%2080a36/Untitled.png" alt="Untitled"></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//判断是否有&quot;记住我&quot;信息</span></span><br><span class="line">    <span class="keyword">let</span> rememberState = <span class="built_in">localStorage</span>.getItem(<span class="string">&#x27;rememberPhone&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>前端点击登录按钮输入用户名密码后，调取前述的api,然后使用如下的js代码进行处理：</strong></p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="comment">//判断当前登录对象</span></span><br><span class="line">customerLogin(param).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断是否登录成功</span></span><br><span class="line"><span class="keyword">if</span> (response.data.code === <span class="number">200</span>) &#123;</span><br><span class="line">getCustomerInfo().then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;登录成功的返回值为&quot;</span>,response.data)</span><br><span class="line">            <span class="keyword">if</span> (response.status === <span class="number">200</span>) &#123;</span><br><span class="line">              <span class="built_in">this</span>.userName = response.data.userName;</span><br><span class="line">              <span class="built_in">this</span>.userAvatar = response.data.userAvatar;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&quot;用户id为&quot;</span>,response.data.userId)</span><br><span class="line"></span><br><span class="line"><span class="comment">//后端返回身份</span></span><br><span class="line"><span class="comment">//将用户token保存到vuex中，vuex将一些变量存入内存中，相当于项目的全局变量</span></span><br><span class="line"><span class="built_in">this</span>.changeLogin(&#123;</span><br><span class="line">                <span class="attr">Authorization</span>: <span class="built_in">this</span>.userToken,<span class="comment">//该代码在使用sa-token方案后没有用了</span></span><br><span class="line">                <span class="attr">userId</span>:response.data.userId,</span><br><span class="line">                <span class="attr">userName</span>: response.data.userName,</span><br><span class="line">                <span class="attr">userAvatar</span>: response.data.userAvatar,</span><br><span class="line">                <span class="attr">userIdentity</span>: <span class="string">&#x27;Customer&#x27;</span>,</span><br><span class="line">                <span class="attr">userPermissions</span>: response.data.userPermissions</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">              <span class="built_in">this</span>.dialogTableVisible = <span class="literal">false</span>;</span><br><span class="line">              <span class="built_in">this</span>.loginState = <span class="number">1</span>;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&#x27;顾客成功登录&#x27;</span>)</span><br><span class="line"></span><br><span class="line">              <span class="built_in">this</span>.$message(&#123;</span><br><span class="line">                <span class="attr">message</span>: <span class="string">&#x27;登录成功！&#x27;</span>,</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;success&#x27;</span></span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//跳转路由</span></span><br><span class="line"><span class="built_in">this</span>.$router.push(&#123;<span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//检查是否勾选了&quot;记住我&quot;</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">this</span>.$refs.loginComponent.rememberMe) &#123;</span><br><span class="line">                <span class="built_in">this</span>.rememberLogin(&#123;</span><br><span class="line">                  <span class="attr">rememberPhone</span>: <span class="built_in">this</span>.$refs.loginComponent.phonenumber,</span><br><span class="line">                  <span class="attr">rememberPassword</span>: <span class="built_in">this</span>.$refs.loginComponent.password</span><br><span class="line">                &#125;)</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">this</span>.delRemember();</span><br><span class="line">              &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="built_in">this</span>.$message(&#123;</span><br><span class="line">                <span class="attr">message</span>: <span class="string">&#x27;用户信息获取失败！&#x27;</span>,</span><br><span class="line">                <span class="attr">type</span>: <span class="string">&#x27;warning&#x27;</span></span><br><span class="line">              &#125;);</span><br><span class="line"><span class="comment">// function returned</span></span><br><span class="line">&#125;</span><br><span class="line">          &#125;</span><br><span class="line">      ).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.$message(&#123;</span><br><span class="line">          <span class="attr">message</span>: <span class="string">&#x27;用户信息获取失败！&#x27;</span>,</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;warning&#x27;</span></span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>, error)</span><br><span class="line"><span class="comment">// function returned</span></span><br><span class="line">&#125;)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.$message(&#123;</span><br><span class="line">        <span class="attr">message</span>: <span class="string">&#x27;账号不存在或密码错误！&#x27;</span>,</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;warning&#x27;</span></span><br><span class="line">      &#125;);</span><br><span class="line"><span class="comment">// function returned</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  &#125;).catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.$message(&#123;</span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;登录失败，请稍后重试&#x27;</span>,</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;warning&#x27;</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;error&#x27;</span>, errohoudjuan </span><br></pre></td></tr></table></figure>
+<p><img src="%E5%BD%92%E5%AE%BF%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%9B%98%E4%BD%93%E4%BC%9A%2080a36/Untitled%201.png" alt="Untitled"></p>
+<h3 id="登录鉴权的解决方案：">登录鉴权的解决方案：</h3>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jiangshangchunjiezi/article/details/104433135">(25条消息) Cookie原理、Set-Cookie常用字段、应用_FixedStarHaHa的博客-CSDN博客_set-cookie</a></p>
+<p><img src="%E5%BD%92%E5%AE%BF%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%9B%98%E4%BD%93%E4%BC%9A%2080a36/Untitled%202.png" alt="Untitled"></p>
+<p>如上图所示，主要技术是sa-token在返回的响应头中设置cookie，服务端生成保存在客户端，请求头对应Cookie字段，响应头对应set-Cookie字段。cookie存储了token信息，今后在调用所有的api发送请求时都会自动携带cookie信息。</p>
+<p><strong>set-cookie字段</strong></p>
+<p>示例:</p>
+<p>Set-Cookie: satoken=903eb0fd-c4db-42ee-ada3-48c136541f1c; Max-Age=2592000; Expires=Sun, 17 Apr 2022 16:09:06 +0800; Path=/</p>
+<p>Set-Cookie:value [ ;expires=date][ ;domain=domain][ ;path=path][ ;secure]</p>
+<p>value: 键值对</p>
+<p>expires: 表示会在多长时间后失效</p>
+<p>domain: 默认是主机名</p>
+<p>一般所说的<strong>不可跨域</strong>是指二级域名层次，<a target="_blank" rel="noopener" href="http://xn--bvs393b.yahoo.xn--com-cj4e.baidu.com">比如.yahoo.com和.baidu.com</a>。</p>
+<p>path: 若path=/admin，则页面/admin和/admin/sth是可以访问的（当前及子域），而/home、/adminpage是不能访问的；通常设置为path=/，让网站的所有页面均可以访问。若不设置,默认是 /项目名称/当前路径的上一层地址</p>
+<p><strong>Cookie的限制</strong><br>
+Cookie数量和长度的限制。每个domain最多只能有20条cookie（取决于浏览器），若达到上限，则浏览器随机删除cookie；每个cookie长度不能超过4KB，否则会被截掉；浏览器最多300个cookie。<br>
+安全性问题。如果cookie被人拦截了，那人就可以取得所有的cookie信息。即使加密也与事无补，因为拦截者并不需要知道cookie的意义，他只要原样转发cookie就可以达到目的了。<br>
+（cookie是服务端给客户端的用户标识，而不是进行身份认证）<br>
+ho</p>
+<h3 id="后端Sa-token的SSO实现方案">后端Sa-token的SSO实现方案</h3>
+<p><a target="_blank" rel="noopener" href="https://x8uwstyih4.feishu.cn/wiki/wikcnk4KoGynbJo5HdFe6DPL1fh#">SSO 集成方案 - 飞书云文档 (feishu.cn)</a></p>
+<p>注意领会单点登录和Oauth2登录的区别</p>
+<p>单点登录（Single Sign On），简称为 SSO，是比较流行的企业业务整合的解决方案之一。SSO的定义是在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统。</p>
+<table>
+<thead>
+<tr>
+<th>系统架构</th>
+<th>简介</th>
+<th>文档链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前端同域—+后端同redis</td>
+<td>共享Cookie同步会话</td>
+<td>SSO模式一 共享Cookie同步会话 - Sa-Token (<a target="_blank" rel="noopener" href="http://dev33.cn">dev33.cn</a>)</td>
+</tr>
+<tr>
+<td>前端不同域+后端同redis</td>
+<td>URL重定向传播会话</td>
+<td>SSO模式二 URL重定向传播会话 - Sa-Token (<a target="_blank" rel="noopener" href="http://dev33.cn">dev33.cn</a>)</td>
+</tr>
+<tr>
+<td>前端不同域 + 后端不同 Redis</td>
+<td>http请求获取会话</td>
+<td>SSO模式三 Http请求获取会话 - Sa-Token (<a target="_blank" rel="noopener" href="http://dev33.cn">dev33.cn</a>)</td>
+</tr>
+</tbody>
+</table>
+<p><a target="_blank" rel="noopener" href="https://sa-token.dev33.cn/doc/index.html#/">介绍 - Sa-Token (dev33.cn)</a></p>
+<p>附上Sa - Token的官方文档</p>
+<h2 id="为什么要用redis">为什么要用redis</h2>
+<p>Sa-token默认将数据保存在内存中，此模式读写速度最快，且避免了序列化与反序列化带来的性能消耗，但是此模式也有一些缺点，比如：</p>
+<ol>
+<li>重启后数据会丢失</li>
+<li>无法在分布式环境中共享数据</li>
+</ol>
+<p>为此，Sa-Token提供了扩展接口，你可以轻松将会话数据存储在 <code>Redis</code><br>
+、<code>Memcached</code>等专业的缓存中间件中， 做到重启数据不丢失，而且保证分布式环境下多节点的会话一致性</p>
+<h2 id="有关微服务的登录鉴权">有关微服务的登录鉴权</h2>
+<p>首先我们要明白，分布式环境下为什么<code>Session</code>会失效？因为用户在一个节点对会话做出的更改无法实时同步到其它的节点， 这就导致一个很严重的问题：如果用户在节点一上已经登录成功，那么当下一次的请求落在节点二上时，对节点二来讲，此用户仍然是未登录状态。</p>
+<p>要怎么解决这个问题呢？目前的主流方案有四种：</p>
+<ol>
+<li><strong>Session同步</strong>：只要一个节点的数据发生了改变，就强制同步到其它所有节点</li>
+<li><strong>Session粘滞</strong>：通过一定的算法，保证一个用户的所有请求都稳定的落在一个节点之上，对这个用户来讲，就好像还是在访问一个单机版的服务</li>
+<li><strong>建立会话中心</strong>：将Session存储在专业的缓存中间件上，使每个节点都变成了无状态服务，例如：<code>Redis</code></li>
+<li><strong>颁发无状态token</strong>：放弃Session机制，将用户数据直接写入到令牌本身上，使会话数据做到令牌自解释，例如：<code>jwt</code></li>
+</ol>
+<p>我们项目使用的是方案三，并且使用**网关统一鉴权，**实现鉴权接口，返回loginId和lodinType对应的权限列表。然后在网关处注册全局过滤器进行鉴权操作。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://qiaoliang.website/2022/04/07/gohomeproject/">https://qiaoliang.website/2022/04/07/gohomeproject/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://qiaoliang.website" target="_blank">Joe's five-dimensional space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%9B%98/">项目复盘</a></div><div class="post_share"><div class="social-share" data-image="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/biglogo.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/04/07/js-this/"><img class="next-cover" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50b203b6557b9563b5b173bcc19c1709.png&amp;refer=http%3A%2F%2Fimg-blog.csdnimg.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893527&amp;t=f3a7f3fcf3594d8003540210aa01226c" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">javascript学习笔记--this指向问题</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%A4%B4%E5%83%8F.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Joe</div><div class="author-info__description">同济大学软件学院2019级梁乔‍</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/redifinition" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:19921305202@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">成都人也。同济大学软件学院2019级学生，喜欢记录一些自己像记录的东西和故事。热爱运动，喜欢乒乓球🏓、长跑🏃‍、健身🏋️‍、游泳🏊。热爱记录美食，啥都爱吃。对闭眼唱情歌上瘾。第三针新冠疫苗已打。家有鹦鹉，偶尔中二，偶尔网抑，永远阳光。</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">归宿项目复盘体会</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">登录鉴权部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83-%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95"><span class="toc-number">2.1.</span> <span class="toc-text">登录鉴权-单点登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="toc-number">2.1.1.</span> <span class="toc-text">登录鉴权的解决方案：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E7%AB%AFSa-token%E7%9A%84SSO%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88"><span class="toc-number">2.1.2.</span> <span class="toc-text">后端Sa-token的SSO实现方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8redis"><span class="toc-number">2.2.</span> <span class="toc-text">为什么要用redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E5%85%B3%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%99%BB%E5%BD%95%E9%89%B4%E6%9D%83"><span class="toc-number">2.3.</span> <span class="toc-text">有关微服务的登录鉴权</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/gohomeproject/" title="归宿项目复盘体会--技术回顾"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/biglogo.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="归宿项目复盘体会--技术回顾"/></a><div class="content"><a class="title" href="/2022/04/07/gohomeproject/" title="归宿项目复盘体会--技术回顾">归宿项目复盘体会--技术回顾</a><time datetime="2022-04-07T03:20:25.000Z" title="发表于 2022-04-07 11:20:25">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-this/" title="javascript学习笔记--this指向问题"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg-blog.csdnimg.cn%2Fimg_convert%2F50b203b6557b9563b5b173bcc19c1709.png&amp;refer=http%3A%2F%2Fimg-blog.csdnimg.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893527&amp;t=f3a7f3fcf3594d8003540210aa01226c" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript学习笔记--this指向问题"/></a><div class="content"><a class="title" href="/2022/04/07/js-this/" title="javascript学习笔记--this指向问题">javascript学习笔记--this指向问题</a><time datetime="2022-04-07T03:17:41.000Z" title="发表于 2022-04-07 11:17:41">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/debounc/" title="javascript--防抖与节流"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fqqpublic.qpic.cn%2Fqq_public%2F0%2F0-3103668252-AA9D34452424D52531C7C43B51D247B5%2F0%3Ffmt%3Djpg%26size%3D40%26h%3D383%26w%3D900%26ppv%3D1.jpg&amp;refer=http%3A%2F%2Fqqpublic.qpic.cn&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893196&amp;t=d3afacc51b3f752ba61de0c55e8379fc" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--防抖与节流"/></a><div class="content"><a class="title" href="/2022/04/07/debounc/" title="javascript--防抖与节流">javascript--防抖与节流</a><time datetime="2022-04-07T03:11:37.000Z" title="发表于 2022-04-07 11:11:37">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-curring/" title="javascript--柯里化"><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic1.zhimg.com%2Fv2-ed9c5afe7c5276b0ee93f52b58d1d851_1200x500.jpg&amp;refer=http%3A%2F%2Fpic1.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1651893839&amp;t=02ae8fa9d105074f70e5f440071f4d8f" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--柯里化"/></a><div class="content"><a class="title" href="/2022/04/07/js-curring/" title="javascript--柯里化">javascript--柯里化</a><time datetime="2022-04-07T03:08:12.000Z" title="发表于 2022-04-07 11:08:12">2022-04-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/07/js-function/" title="javascript--函数进阶总结"><img src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/js.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="javascript--函数进阶总结"/></a><div class="content"><a class="title" href="/2022/04/07/js-function/" title="javascript--函数进阶总结">javascript--函数进阶总结</a><time datetime="2022-04-07T03:03:58.000Z" title="发表于 2022-04-07 11:03:58">2022-04-07</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/wallhaven-5787d5_2560x1080.png')"><div id="footer-wrap"><div class="copyright">&copy;2022 By Joe</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">欢迎来到Joe的个人博客！<br><a target="_blank" rel="noopener" href="https://beian.aliyun.com/?spm=a2cmq.17629970.0.0.f0d079fehkNnwX"><img class="icp-icon" src="https://joes-bucket.oss-cn-shanghai.aliyuncs.com/img/%E5%9B%BD%E5%BE%BD1024.png"><span>蜀ICP备2022004251号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="rightside.chat_btn"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'fb5d3e29fb620a53ccb4',
+      clientSecret: '10e8e9a817b2577caba38110f25c3bdb7d2eae73',
+      repo: 'redifinition.github.io',
+      owner: 'redifinition',
+      admin: ['redifinition'],
+      id: '9d389f8bd0b87d25b8bb724b1b989199',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script async src="/js/weather.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="true"></script><script>((window.gitter = {}).chat = {}).options = {
+  disableDefaultChat: true,
+};
+document.addEventListener('gitter-sidecar-ready', (e) => {
+  const GitterChat = e.detail.Chat
+  let chat
+
+  function initGitter () {
+    chat = new GitterChat({
+      room: 'JokerJoeRoom/community',
+      activationElement: '#chat_btn'
+    });
+  }
+
+  initGitter()
+
+  if (false) {
+    document.addEventListener('pjax:complete', () => {
+      chat.destroy()
+      initGitter()
+    })
+  }
+
+})</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="async" defer="defer"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="https://cdn.jsdelivr.net/npm/live2d-widget@^3.1.3/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"superSample":2,"position":"left","width":150,"height":300,"hOffset":20,"vOffset":-90},"mobile":{"show":true,"scale":1},"react":{"opacityDefault":0.3,"opacityOnHover":0.3,"opacity":0.95},"log":false});</script></body></html>
